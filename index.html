@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Multi Criteria Evaluation</title>
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            bottom: 0;
+            right: 0;
+        }
+       
+
+        #containerSub{
+            padding: 0;
+                    margin: 0;
+                    height: 100%;
+                    width: 100%;
+                    bottom: 0;
+                    right: 0;
+                    position: relative;
+                    display: flex;
+                    flex-direction: row;
+                    
+        }
+        #container{
+            padding: 0;
+                    margin: 0;
+                    height: 100%;
+                    width: 100%;
+                    bottom: 0;
+                    right: 0;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    
+        }
+
+        #layerToggle {
+            top: 20px;
+            right: 20px;
+            position: absolute;
+            z-index: 99;
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            opacity: 0.75;
+        }
+
+       #title {
+        color: rgb(255, 255, 255);
+            background-color:rgb(10, 10, 10);
+            font-size: 40px;
+            padding-left: 1%;
+            padding-bottom: .5%;
+            display: flex;
+            flex-direction: column;
+       }
+
+       #containerDiv {
+        background-color: white;
+        padding: 3px;
+        text-align: center;
+        min-width: 260px;
+        display: none;
+        height: 400px;
+      }
+
+       #sidePanel {
+            height: 100%;
+            width: 25%;
+            background-color: white;
+            padding: 0;
+            margin: 0;
+            left:0;
+               }
+        
+        .esri-feature-form__input {
+        resize: vertical !important;
+        }
+       .esri-view-width-less-than-large .esri-popup__action-text {  
+         display: block !important;
+        }
+       .esri-view .esri-view-surface--inset-outline:focus::after {
+        outline: none !important;
+       }
+
+      
+
+       .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            z-index: 10;
+
+            }
+
+            .splashBackground{
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(7, 7, 7, 0.7);
+              z-index: 200;
+            }
+
+            .splashText{
+              z-index: 201;
+              color: white;
+              text-align: center;
+              height: 100%;
+              width: 100%;
+              margin-top:20%;           
+            }
+
+            .acceptButton {
+              position: fixed;
+              display: inline-block;
+              background: black;
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              font-size: 16px;
+              margin: 4px 2px;
+              cursor: pointer;
+              z-index: 250;
+              }
+
+            .resetButton {
+                margin-left: 5%;
+              }
+
+          label {
+                margin-left: 5%;
+              }
+
+          .bars {
+              margin-left: 5%;
+              margin-right: 5%;
+              width: 90%
+              }
+
+          .info{
+            margin: 5%;
+            text-align: justify;
+          }
+
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.20/esri/themes/light/main.css"
+    />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYH3CBY24N"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HYH3CBY24N');
+</script>
+
+    <script src="https://js.arcgis.com/4.20/"></script>
+
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer",
+            "esri/widgets/LayerList",
+            "esri/widgets/Sketch/SketchViewModel",
+            "esri/layers/GraphicsLayer",
+            "esri/geometry/geometryEngineAsync",
+            "esri/layers/GroupLayer",
+            "dojo/Deferred",
+            "dojo/promise/all",
+            "esri/widgets/Search",
+            "esri/widgets/Home",
+            "esri/widgets/BasemapGallery",
+            "esri/widgets/Expand",
+            "esri/tasks/Geoprocessor",
+            "esri/geometry/projection",
+            "esri/geometry/SpatialReference",
+            "esri/config",
+            "esri/widgets/Editor",
+            "esri/identity/IdentityManager",
+            "esri/core/watchUtils",
+            "esri/Graphic",
+            "esri/identity/OAuthInfo",
+            "esri/form/elements/FieldElement",
+            "esri/widgets/FeatureTemplates",
+            "esri/widgets/FeatureForm",
+            "esri/form/FormTemplate",
+            "esri/form/elements/inputs/DateTimePickerInput",
+            "esri/popup/content/AttachmentsContent",
+            "esri/popup/content/TextContent",
+            "esri/renderers/ClassBreaksRenderer",
+            "esri/smartMapping/renderers/color",
+            "esri/smartMapping/statistics/histogram",
+            "esri/widgets/smartMapping/ColorSlider",
+            "esri/smartMapping/symbology/color"
+
+
+        ], (
+            Map,
+            MapView,
+            FeatureLayer,
+            LayerList,
+            SketchViewModel,
+            GraphicsLayer,
+            geometryEngineAsync,
+            GroupLayer,
+            Deferred,
+            all,
+            Search,
+            Home,
+            BasemapGallery,
+            Expand,
+            Geoprocessor,
+            projection,
+            SpatialReference,
+            esriConfig,
+            Editor,
+            esriId,
+            watchUtils,
+            Graphic,
+            OAuthInfo,
+            FieldElement,
+            FeatureTemplates,
+            FeatureForm,
+            FormTemplate,
+            DateTimePickerInput,
+            AttachmentsContent,
+            TextContent,
+            ClassBreaksRenderer,
+            colorRendererCreator,
+            histogram,
+            ColorSlider,
+            colorSchemes
+ 
+
+            
+        ) => {
+
+
+/*             //Allow Enterprise Logins
+          const info = new OAuthInfo({
+          appId: "Mgm6k65EmoNlYgAp",
+            portalUrl: "https://gis.auburnwa.gov/portal",
+          popup: false
+        });
+        esriConfig.apiKey = "AAPK8eaf1071325e461ba3513cc62f9416d2g_akzqqDfhhoPVny7YNZEQDIsiU2CXKVs8eID4obrJLDvObnwk7CcFrjfhoQfnL_";
+
+        esriId.registerOAuthInfos([info]);
+        esriId.getCredential(info.portalUrl + "/sharing");
+          //   */
+
+
+          var bar1 = document.querySelector("#bar1");
+          bar1.value = 1
+          var bar1Label = document.getElementById("bar1Label");
+          bar1Label.innerHTML = 'x ' + bar1.value.toString()
+
+          var bar2 = document.querySelector("#bar2");
+          bar2.value = 1
+          var bar2Label = document.getElementById("bar2Label");
+          bar2Label.innerHTML = 'x ' + bar2.value.toString()
+
+          var bar3 = document.querySelector("#bar3");
+          bar3.value = 1
+          var bar3Label = document.getElementById("bar3Label");
+          bar3Label.innerHTML = 'x ' + bar3.value.toString()
+
+          var bar4 = document.querySelector("#bar4");
+          bar4.value = 1
+          var bar4Label = document.getElementById("bar4Label");
+          bar4Label.innerHTML ='x ' + bar4.value.toString()
+       
+       
+          // Create the Map
+          var map = new Map({
+          basemap: "streets-night-vector"
+          //basemap: "streets-vector"
+          })
+
+
+        // Create the MapView
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-122.200, 47.295],
+          zoom: 12
+        });
+
+        //Search Widget
+        const searchWidget = new Search({
+          view: view
+          });
+          view.ui.add(searchWidget, {
+          position: "top-left",
+          index: 0
+          });
+          //
+      
+          // Home button
+          var homeBtn = new Home({
+          view: view
+          });
+          view.ui.add(homeBtn, "top-left");
+          //
+
+          //basmap gallery
+          var basemapGallery = new BasemapGallery({
+          view: view,
+          container: document.createElement("div")
+          });
+
+          var bgExpand = new Expand({
+          view: view,
+          content: basemapGallery
+          });
+
+          basemapGallery.watch("activeBasemap", function() {
+          var mobileSize = view.heightBreakpoint === "xsmall" || view.widthBreakpoint === "xsmall";
+          generateRenderer()
+
+          if (mobileSize) {
+              bgExpand.collapse();
+          }
+          });
+
+          view.ui.add(bgExpand, "bottom-right");
+          //
+
+
+      //don't allow popup to collapse
+      
+      view.popup.collapseEnabled = false;
+      view.popup.maxInlineActions = 10;
+      view.popup.dockOptions = {
+            // Disable the dock button so users cannot undock the popup
+            buttonEnabled: false,
+            // Dock the popup when the size of the view is less than or equal to 600x1000 pixels
+            breakpoint: {
+              width: 600,
+              height: 1000
+            }
+          };
+
+        //this var is casted again in generateRenderer()
+        var indexExpression = "round(Sum([$feature.Crime_Z*"+bar1.value +", $feature.LowIn_Z*"+bar2.value +", $feature.Minority_Z*"+bar3.value +", $feature.POP_D_Z*"+bar4.value +"]),2)"
+
+
+
+
+         // Create the AttachmentsContent popup element
+          // If the selected feature has attributes associated with it, they will display within the popup
+          let attachmentsElement = new AttachmentsContent({
+            displayType: "list" // this will show all attachments as a list of linked files
+          });
+
+          let contentText = new TextContent();
+          contentText.text = "Adjusted Index: {"+indexExpression+"}";
+
+            
+                    //Popup template
+
+
+      //don't allow popup to collapse
+      view.popup.collapseEnabled = false;
+
+        var labelClass = {
+          // autocasts as new LabelClass()
+          symbol: {
+            type: "text",  // autocasts as new TextSymbol()
+            font: {  // autocast as new Font()
+              family: "Playfair Display",
+              size: 12,
+              weight: "bold"
+            }
+          },
+          labelExpressionInfo: {
+            expression:  indexExpression
+
+          }
+        };
+
+     
+         let featureLayer = new FeatureLayer({
+          url: "https://services1.arcgis.com/Talr0y9yrNfatLSI/arcgis/rest/services/Final_WithLights/FeatureServer",
+          outFields: ["*"],
+          title: "Block Groups",
+         // popupTemplate: popupTemplate,
+          //renderer: renderer,
+          labelingInfo: [labelClass]
+        });
+        map.add(featureLayer);
+
+ 
+
+watchUtils.whenFalseOnce(view, "updating", generateRenderer);
+
+function generateRenderer() {
+    indexExpression = "round(Sum([$feature.Crime_Z*"+bar1.value +", $feature.LowIn_Z*"+bar2.value +", $feature.Minority_Z*"+bar3.value +", $feature.POP_D_Z*"+bar4.value +"]),2)"
+
+    var popupTemplate = {
+          title: "Block Group: {ID}",
+          content: "Index: {expression/index} <br> CrimeZ: {expression/Crime_Z}",
+          expressionInfos:[{
+              name: "index",
+              expression: indexExpression
+          },{
+              name: "Crime_Z",
+              expression: "round($feature.Crime_Z*"+bar1.value +",2)"
+          },{
+              name: "LowIn_Z",
+              expression: "round($feature.LowIn_Z*"+bar2.value +",2)"
+          },{
+              name: "Monority_Z",
+              expression: "round($feature.Minority_Z,2)"
+          }
+        ]
+        };
+
+    featureLayer.popupTemplate = popupTemplate
+
+    const colorScheme = colorSchemes.getSchemeByName({
+    basemap: map.basemap,
+    geometryType: featureLayer.geometryType,
+    theme: "above-and-below",
+    name: "Blue and Orange 5"
+  });
+
+  const colorParams = {
+    layer: featureLayer,
+    valueExpression: indexExpression,
+    view: view,
+    outlineOptimizationEnabled: true,
+    colorScheme: colorScheme
+  };
+
+  let rendererResult;
+
+  colorRendererCreator
+    .createContinuousRenderer(colorParams)
+    .then((response) => {
+      rendererResult = response;
+      featureLayer.renderer = rendererResult.renderer;
+
+      return histogram({
+        layer: featureLayer,
+        valueExpression: colorParams.valueExpression,
+        view: view,
+        numBins: 70
+      });
+    })
+
+ 
+    .then((histogramResult) => {
+      document.getElementById("slider").innerHTML = ''
+
+      var colorSlider = ColorSlider.fromRendererResult(
+        rendererResult,
+        histogramResult
+      );
+  
+      colorSlider.container = "slider";
+      colorSlider.primaryHandleEnabled = true;
+      // Round labels to 1 decimal place
+      colorSlider.labelFormatFunction = (value, type) => {
+        return value.toFixed(1);
+      };
+      colorSlider.viewModel.precision = 1;
+      view.ui.add("containerDiv", "bottom-left");
+      document.getElementById("containerDiv").style.display = "block"
+      enableBars()
+ 
+ 
+      // When the user slides the handle(s), update the renderer
+      // with the updated color visual variable object
+      function changeEventHandler() {
+        var renderer = featureLayer.renderer.clone();
+        var colorVariable = renderer.visualVariables[0].clone();
+        var outlineVariable = renderer.visualVariables[1];
+        colorVariable.stops = colorSlider.stops;
+        renderer.visualVariables = [colorVariable, outlineVariable];
+        featureLayer.renderer = renderer;
+      }
+
+      colorSlider.on(
+        ["thumb-change", "thumb-drag", "min-change", "max-change"],
+        changeEventHandler
+      );
+     
+    })
+    .catch((error) => {
+      console.error("Error: ", error);
+    });
+}
+
+        function updateLabels(){
+          featureLayer.labelingInfo[0].labelExpressionInfo.expression = indexExpression
+
+        }
+
+         //layerList with Legend & Actions //
+          const layerList = new LayerList({
+          view: view,
+          index: 1,
+          listItemCreatedFunction: function (event) {
+              const item = event.item;
+
+              //Add group layer actions
+  
+              item.actionsSections = [
+                          
+            [
+              {
+                title: "Increase opacity",
+                className: "esri-icon-up",
+                id: "increase-opacity"
+              },
+              {
+                title: "Decrease opacity",
+                className: "esri-icon-down",
+                id: "decrease-opacity"
+              }
+            ]
+          ];
+              
+
+
+            //Add Legend to Layer List
+            if (item.layer.type != "group") {
+                  item.panel = {
+                      content: "legend",
+                      open: true
+                  };
+              }
+          } 
+      });
+
+      //LayerList Actions Function
+        layerList.on("trigger-action", function(event) {
+
+          var actionLayers = event.item.layer.layers
+          var actionLayer = event.item.layer
+
+          var id = event.action.id;
+
+          if (id === "increase-opacity") {
+        
+            if (actionLayer.opacity < 1) {
+              actionLayer.opacity += 0.25;
+            }
+
+          }else if (id === "decrease-opacity") {
+            if (actionLayer.opacity > 0) {
+              actionLayer.opacity -= 0.25;
+          }
+
+          }else if (id === "toggle-labels"){
+            console.log(actionLayers.items[0])
+            if(actionLayers.items[0].labelsVisible === false){
+             
+              actionLayers.forEach(element => {
+                  element.labelsVisible = true
+                });
+            }else{
+              actionLayers.forEach(element => {
+                  element.labelsVisible = false
+                });
+            }
+  
+            }
+        });
+
+        //Make Layer List Expandable
+        var LLExpand = new Expand({
+              view: view,
+              content: layerList
+              });
+
+            layerList.watch("activeBasemap", function() {
+            var mobileSize = view.heightBreakpoint === "xsmall" || view.widthBreakpoint === "xsmall";
+
+            if (mobileSize) {
+              LLExpand.collapse();
+            }
+            });
+
+            view.ui.add(LLExpand, "top-right");
+  
+      //
+
+            function disableBars(){
+              document.getElementById("bar1").disabled = true;
+              document.getElementById("bar2").disabled = true;
+              document.getElementById("bar3").disabled = true;
+              document.getElementById("bar4").disabled = true;
+              document.getElementById("resetButton").disabled = true;
+            }
+
+            function enableBars(){
+              document.getElementById("bar1").disabled = false;
+              document.getElementById("bar2").disabled = false;
+              document.getElementById("bar3").disabled = false;
+              document.getElementById("bar4").disabled = false;
+              document.getElementById("resetButton").disabled = false;
+            }
+
+
+            //Event listener for Sliders. One for input to update the label and one click to update the map
+            bar1.addEventListener("input", function (){
+              bar1Label.innerHTML = 'x '+this.value.toString()
+            })
+            bar1.addEventListener("click", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
+
+            bar2.addEventListener("input", function (){
+              bar2Label.innerHTML = 'x '+this.value.toString()
+            })
+            bar2.addEventListener("click", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
+
+            bar3.addEventListener("input", function (){
+              bar3Label.innerHTML = 'x '+this.value.toString()
+            })
+            bar3.addEventListener("click", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
+
+            bar4.addEventListener("input", function (){
+              bar4Label.innerHTML = 'x '+this.value.toString()
+            })
+            bar4.addEventListener("click", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
+
+
+            //resetButton event listener to reset the weights and map back to equal weights
+          var resetButton = document.getElementById("resetButton");
+            resetButton.addEventListener("click", function (){
+              document.querySelector("#bar1").value = 1
+              document.getElementById("bar1Label").innerHTML = (document.querySelector("#bar1").value).toString()
+
+              document.querySelector("#bar2").value = 1
+              document.getElementById("bar2Label").innerHTML = (document.querySelector("#bar2").value).toString()
+
+              document.querySelector("#bar3").value = 1
+              document.getElementById("bar3Label").innerHTML = (document.querySelector("#bar3").value).toString()
+
+              document.querySelector("#bar4").value = 1
+              document.getElementById("bar4Label").innerHTML = (document.querySelector("#bar4").value).toString()
+              
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
+      });
+  
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+    <div id="title">Multi Criteria Evaluation</div>
+    <div id="containerSub">
+        <div id="sidePanel">
+            <p class="info">this is a test paragraph for testing. I need more test characters to see how things flow.</p>
+          
+            <br><h2 class="esri-widget__heading esri-editor__title">Variable Weights</h2>
+          
+            <label for="bar1" >Crime Rate</label><br>
+            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar1"/>
+            <label id="bar1Label" for="bar1"></label><br><br><br>
+
+            <label for="bar2">Percent Low Income</label><br>
+            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar2"/>
+            <label id="bar2Label" for="bar2"></label><br><br><br>
+
+            <label for="bar3">Percent Linguistically Isolated </label><br>
+            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar3"/>
+            <label id="bar3Label" for="bar3"></label><br><br><br>
+
+            <label for="bar4">Percent Minority Population</label><br>
+            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar4"/>
+            <label id="bar4Label" for="bar4"></label><br><br><br>
+
+            <button id = "resetButton" class="resetButton">Reset Weights</button>
+          
+        </div>
+        <div id="viewDiv"></div>
+        <div id="containerDiv" class="esri-widget">
+          <span id="title" class="esri-widget">Adjusted Index</span>
+          <div id="slider"></div>
+        </div>
+    </div>
+</div>
+    
+    
+
+</body>
+</html>
