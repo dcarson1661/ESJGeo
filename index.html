@@ -649,6 +649,11 @@ function generateRenderer() {
               generateRenderer()
               updateLabels()
             })
+            bar2.addEventListener("touchend", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
 
             bar3.addEventListener("input", function (){
               bar3Label.innerHTML = 'x '+this.value.toString()
@@ -658,11 +663,21 @@ function generateRenderer() {
               generateRenderer()
               updateLabels()
             })
+            bar3.addEventListener("touchend", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
 
             bar4.addEventListener("input", function (){
               bar4Label.innerHTML = 'x '+this.value.toString()
             })
             bar4.addEventListener("click", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
+            bar4.addEventListener("touchend", function (){
               disableBars()
               generateRenderer()
               updateLabels()
