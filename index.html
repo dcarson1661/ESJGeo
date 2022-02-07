@@ -634,6 +634,12 @@ function generateRenderer() {
               generateRenderer()
               updateLabels()
             })
+            bar1.addEventListener("touchend", function (){
+              disableBars()
+              generateRenderer()
+              updateLabels()
+            })
+
 
             bar2.addEventListener("input", function (){
               bar2Label.innerHTML = 'x '+this.value.toString()
