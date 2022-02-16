@@ -23,10 +23,12 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
-          <li class="nav-item"> <a class="nav-link" href="mailto:sales@ESJ-Geo.com?subject=Demo Request">Request a Demo</a> </li>
+          <li class="nav-item active"> <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> </li>
+			<li class="nav-item"> <a class="nav-link" href="intro.html">Learn more</a> </li>
+			<li class="nav-item"> <a class="nav-link" href="search.html">Search</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="mailto:sales.esjgeo@gmail.com">Contact</a> </li>
 
-          <li class="nav-item"> <a class="nav-link" href="intro.html">Learn more</a> </li>
+          
         </ul>
       </div>
     </nav>
@@ -48,12 +50,17 @@
 
         <div class="col-sm-6 col-lg-6 col-xl-12" >
 			<div align="center">
-			<iframe width="600" height="400"
-				src="https://www.youtube.com/embed/tgbNymZ7vqY" > </iframe><br><br><br>
-			</div>
+
           <blockquote class="blockquote">
 			  			
-            <p class="mb-0">In the sections below we will review  ESJ-Geo results and how to intererpt them.
+            <p class="mb-0">In the sections below we will review  ESJ-Geo results and how to intererpt them. </p>
+            <p class="mb-0">&nbsp;</p>
+			  <p class="mb-0">Geographies:<br>Census Block Groups as the evaluated areas in ESJ-Geo. Block Groups were selected due to the fact that they are the smallest geographies avaiable that include demographic data. </p>
+			  <p class="mb-0">&nbsp;</p>
+			  <p class="mb-0">Normalisation:<br>Each variable used in ESJ-Geo is standardised using a statistical normalization in the form of a standard score (z-score)<img src="images/Z-score-formula.jpg" alt="" width="300"  class="img-thumbnail"/></p>
+		    <p class="mb-0">&nbsp;</p>
+			  <p class="mb-0">Final Adjusted Index:<br>
+	           Each standard score is them multiplied by the user defined weight. A user defined weight of 0 results in the variable not participating in the final Ajusted Index. The Final Ajusted Index is the Sum of all the standard scores times their given weights. This Final Adjusted Index is then evaluated based on how a Block Group differs from the mean value of the Adjusted Index of all the participating Block Groups. The Block Groups whos Final Ajusted Index that is more positive and greater than one standard deviation from the mean, is considered to be statistically significaly more vulnerable than those who have a lower Final Adjusted Index.&nbsp;&nbsp;The Block Groups whos Final Ajusted Index that is more positive and a larger difference than the mean than one standard deviation, is considered to be statistically significaly more vulnerable than those who have a lower Final Adjusted Index.</p>
           </blockquote>
         </div>
       </div>
@@ -62,11 +69,11 @@
         <div class="container">
           <div class="row">
             <div class="text-center col-md-8 col-12 mx-auto">
-              <p class="lead">ESJ-Geo is available in over 250 Cities. Click below to request a demo for your community today!</p>
+              <p class="lead">Click below to view results for your community!</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-4 col-auto mx-auto"> <a class="btn btn-block btn-lg btn-success" href="mailto:sales@ESJ-Geo.com?subject=Demo Request" title="">Request a Demo</a> </div>
+            <div class="col-sm-4 col-auto mx-auto"> <a class="btn btn-block btn-lg btn-success" href="search.html" title="">Search</a> </div>
           </div>
         </div>
       </div>
