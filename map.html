@@ -286,14 +286,6 @@
           //    */
  
 
-
-
-
-          var bar1 = document.querySelector("#bar1");
-          bar1.value = 1
-          var bar1Label = document.getElementById("bar1Label");
-          bar1Label.innerHTML = 'x ' + bar1.value.toString()
-
           var bar2 = document.querySelector("#bar2");
           bar2.value = 1
           var bar2Label = document.getElementById("bar2Label");
@@ -658,7 +650,6 @@ function generateRenderer() {
       //
 
             function disableBars(){
-              document.getElementById("bar1").disabled = true;
               document.getElementById("bar2").disabled = true;
               document.getElementById("bar3").disabled = true;
               document.getElementById("bar4").disabled = true;
@@ -666,7 +657,6 @@ function generateRenderer() {
             }
 
             function enableBars(){
-              document.getElementById("bar1").disabled = false;
               document.getElementById("bar2").disabled = false;
               document.getElementById("bar3").disabled = false;
               document.getElementById("bar4").disabled = false;
@@ -675,14 +665,6 @@ function generateRenderer() {
 
 
             //Event listener for Sliders. One for input to update the label and one click to update the map
-            bar1.addEventListener("input", function (){
-              bar1Label.innerHTML = 'x '+this.value.toString()
-            })
-            bar1.addEventListener("click", function (){
-              disableBars()
-              generateRenderer()
-              updateLabels()
-            })
 
             bar2.addEventListener("input", function (){
               bar2Label.innerHTML = 'x '+this.value.toString()
@@ -715,17 +697,16 @@ function generateRenderer() {
             //resetButton event listener to reset the weights and map back to equal weights
           var resetButton = document.getElementById("resetButton");
             resetButton.addEventListener("click", function (){
-              document.querySelector("#bar1").value = 1
-              document.getElementById("bar1Label").innerHTML = (document.querySelector("#bar1").value).toString()
+
 
               document.querySelector("#bar2").value = 1
-              document.getElementById("bar2Label").innerHTML = (document.querySelector("#bar2").value).toString()
+              document.getElementById("bar2Label").innerHTML = 'x '+(document.querySelector("#bar2").value).toString()
 
               document.querySelector("#bar3").value = 1
-              document.getElementById("bar3Label").innerHTML = (document.querySelector("#bar3").value).toString()
+              document.getElementById("bar3Label").innerHTML = 'x '+(document.querySelector("#bar3").value).toString()
 
               document.querySelector("#bar4").value = 1
-              document.getElementById("bar4Label").innerHTML = (document.querySelector("#bar4").value).toString()
+              document.getElementById("bar4Label").innerHTML = 'x '+(document.querySelector("#bar4").value).toString()
               
               disableBars()
               generateRenderer()
@@ -743,11 +724,8 @@ function generateRenderer() {
         <div id="sidePanel">
             <p class="info"> </p>
           
-            <br><h2 class="esri-widget__heading esri-editor__title">Variable Weights</h2>
-          
-            <label for="bar1" >Crime Rate</label><br>
-            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar1"/>
-            <label id="bar1Label" for="bar1"></label><br><br><br>
+            <br><h2 class="esri-widget__heading esri-editor__title">Variable Multipliers</h2>
+          <br>
 
             <label for="bar2">Percent Low Income</label><br>
             <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar2"/>
