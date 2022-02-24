@@ -81,7 +81,7 @@ baseURL = "https://esjgeo.com/map.html?"
               var NAME = results.features[0].attributes.NAME
               var STATE = results.features[0].attributes.state
 
-              window.open(baseURL + 'GEOID='+GEOID+'&place='+NAME+' ,'+STATE);
+              window.open(baseURL + 'GEOID='+GEOID+'&place='+NAME+', '+STATE);
               }else{
                 window.open("search.html"); 
               }
