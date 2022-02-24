@@ -1,0 +1,90 @@
+<html>
+  <head>
+
+<style>
+
+#searchDiv{
+  width: 500px;
+  height: 50px; 
+  margin: 0 auto;
+}
+#label{
+  font-family: 'Segoe UI';
+  text-align: center;  
+}
+
+</style>
+ 
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.18/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.18/"></script>
+
+    <script>
+      require(["esri/widgets/Search",
+      "esri/layers/GraphicsLayer",
+      "esri/layers/FeatureLayer"
+      ], function (
+        Search,
+        GraphicsLayer,
+        FeatureLayer
+      ) {
+
+ 
+        var search = new Search({
+          container: "searchDiv",
+          maxSuggestions: 1
+        });
+
+        console.log(search)
+
+      const featureLayer = new FeatureLayer({
+        url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/ArcGIS/rest/services/Map/FeatureServer/0"
+      });
+
+baseURL = "https://esjgeo.com/map.html?"
+    
+        search.on("search-complete", function (event) {
+          var searchResult = event.results[0].results[0].feature;
+          //console.log(searchResult)
+          queryFeaturelayer(searchResult.geometry)
+
+        })
+
+
+        function queryFeaturelayer(geometry) {
+            const Query = {
+            spatialRelationship: "intersects", // Relationship operation to apply
+            geometry: geometry,  // The sketch feature geometry
+            outFields: ["Name","STATE","GEOID"], // Attributes to return
+            returnGeometry: true
+            };
+
+            featureLayer.queryFeatures(Query)
+            .then((results) => {
+
+              var GEOID = results.features[0].attributes.GEOID
+              var NAME = results.features[0].attributes.NAME
+              var STATE = results.features[0].attributes.state
+
+              window.open(baseURL + 'GEOID='+GEOID+'&place='+NAME+' ,'+STATE);
+
+   
+            }).catch((error) => {
+              console.log(error);
+            });
+
+}
+
+      });
+    </script>
+  </head>
+
+  <body>
+   <h1 id="label">Search to view results for your community!</h1>
+      <div id="searchDiv"></div>
+ 
+  </body>
+</html>
