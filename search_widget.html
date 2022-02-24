@@ -10,8 +10,10 @@
 }
 #label{
   font-family: 'Segoe UI';
-  text-align: center;  
-}
+  text-align: center; 
+  color:white;
+  text-shadow: black 0.1em 0.1em 0.2em
+  }
 
 </style>
  
@@ -32,13 +34,20 @@
         FeatureLayer
       ) {
 
- 
+        var myGeocoder = {
+          url: "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
+          name: "World Geocoder",
+          placeholder: "search for an address..."
+      };
+
         var search = new Search({
           container: "searchDiv",
-          maxSuggestions: 1
+          maxSuggestions: 1,
+          arcgisGeocoder: myGeocoder
+          
         });
 
-        console.log(search)
+        
 
       const featureLayer = new FeatureLayer({
         url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/ArcGIS/rest/services/Map/FeatureServer/0"
@@ -64,13 +73,18 @@ baseURL = "https://esjgeo.com/map.html?"
 
             featureLayer.queryFeatures(Query)
             .then((results) => {
+              console.log(results.features.length)
+
+              if(results.features.length > 0){
 
               var GEOID = results.features[0].attributes.GEOID
               var NAME = results.features[0].attributes.NAME
               var STATE = results.features[0].attributes.state
 
               window.open(baseURL + 'GEOID='+GEOID+'&place='+NAME+' ,'+STATE);
-
+              }else{
+                window.open("search.html"); 
+              }
    
             }).catch((error) => {
               console.log(error);
