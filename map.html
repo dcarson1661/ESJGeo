@@ -65,13 +65,24 @@
         }
 
        #title {
-        color: rgb(255, 255, 255);
-            background-color:rgb(10, 10, 10);
-            font-size: 40px;
+            color: rgb(255, 255, 255);
+            background-color:#7c7676;
+            font-size: 28px;
             padding-left: 1%;
             padding-bottom: .5%;
             display: flex;
             flex-direction: column;
+            text-shadow: black 0.1em 0.1em 0.2em
+       }
+       #header{
+            color: rgb(255, 255, 255);
+            background-color:#e2dddd;
+            font-size: 28px;
+            padding-left: 1%;
+            padding-bottom: .5%;
+            display: flex;
+            flex-direction: column;
+            text-shadow: black 0.1em 0.1em 0.2em
        }
 
        #containerDiv {
@@ -90,6 +101,7 @@
             padding: 0;
             margin: 0;
             left:0;
+            font-family: 'Segoe UI';
                }
         
         .esri-feature-form__input {
@@ -174,10 +186,8 @@
             }
     </style>
 
-    <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.20/esri/themes/light/main.css"
-    />
+    <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/themes/light/main.css"/>
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYH3CBY24N"></script>
@@ -719,14 +729,18 @@ function generateRenderer() {
 
   <body>
     <div id="container">
-    <div id="title"></div>
+      
+ <div id="header">
+        <img src="images/logo.svg"  height="auto" width="160px" data-holder-rendered="true">
+        
+        
+ </div>
+ 
     <div id="containerSub">
         <div id="sidePanel">
-            <p class="info"> </p>
           
-            <br><h2 class="esri-widget__heading esri-editor__title">Variable Multipliers</h2>
-          <br>
-
+            <p class="info"><div id="title"></div> </p>
+<br>
             <label for="bar2">Percent Low Income</label><br>
             <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar2"/>
             <label id="bar2Label" for="bar2"></label><br><br><br>
@@ -739,7 +753,7 @@ function generateRenderer() {
             <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar4"/>
             <label id="bar4Label" for="bar4"></label><br><br><br>
 
-            <button id = "resetButton" class="resetButton">Reset Weights</button>
+            <button id = "resetButton" class="btn btn-secondary" style="margin-left: 5%;">Reset Weights</button>
           
         </div>
         <div id="viewDiv"></div>
