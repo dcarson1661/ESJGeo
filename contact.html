@@ -11,6 +11,30 @@
       gtag('config', 'UA-139855813-1');
     </script>
 
+    <script>
+    function sendMessage() {
+  
+        console.log(document.getElementById("name").value)
+      var request = new XMLHttpRequest();
+      request.open("POST", "https://hook.integromat.com/cbhxvlf9fqyftdxuwsaxrk8suv36kwtw");
+
+      request.setRequestHeader('Content-type', 'application/json');
+
+      var params = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value
+      }
+
+      request.send(JSON.stringify(params));
+      window.location.replace("http://www.w3schools.com");
+    }
+
+    
+
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,30 +53,67 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
           
-			<li class="nav-item"> <a class="nav-link" href="intro.html">Introduction</a> </li>
-      <p class="nav-item nav-link">|</p>
       <li class="nav-item"> <a class="nav-link" href="learn.html">Learn</a> </li>
       <p class="nav-item nav-link">|</p>
       <li class="nav-item"> <a class="nav-link" href="results.html">Understanding Results</a> </li>
       <p class="nav-item nav-link">|</p>
-      <li class="nav-item"> <a class="nav-link" href="contact.html">Contact</a> </li>
+			<li class="nav-item"> <a class="nav-link" href="search.html">Search</a> </li>
+      <p class="nav-item nav-link">|</p>
+      <li class="nav-item"> <a class="nav-link" href="mailto:sales.esjgeo@gmail.com">Contact</a> </li>
           
         </ul>
       </div>
     </nav>
     <header>
-     
+      <div class="jumbotron">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="text-center">Contact Us</h1>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
+    <div class="container ">
+  
 
-     <br>
-<div align="center">
-  <iframe src="https://danec5.maps.arcgis.com/apps/instant/lookup/index.html?appid=8dbb98a512f94a4bbdfcdad68fefae6e" width="1200" height="800" frameborder="5px" style="border:10" allowfullscreen></iframe><br><br>
+      
+
+  
+			  			
+          <iframe src="contact-form.html" height='400px' width='100%' frameborder="0px"></iframe><br><br>
+
+      
+
 </div>
+      <div class="jumbotron" style="width:100%">
+        <div class="container">
+          <div class="row">
+            <div class="text-center col-md-8 col-12 mx-auto">
+              <p class="lead">Click below to view results for your community!</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4 col-auto mx-auto"> <a class="btn btn-block btn-lg btn-success" href="search.html" title="">Search</a> </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
 
-
+          </div>
+        <div class="row">
+          <div class="col-sm-6 col-lg-4">
+          </div>
+        </div>
       </div>
     </section>
+    <div class="container">
 
+
+    </div>
     <footer class="text-center">
       <div class="container">
         <div class="row">
