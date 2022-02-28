@@ -12,22 +12,35 @@
     </script>
 
     <script>
-    function sendMessage() {
-        console.log(document.getElementById("name").value)
-      var request = new XMLHttpRequest();
-      request.open("POST", "https://hook.integromat.com/cbhxvlf9fqyftdxuwsaxrk8suv36kwtw");
 
-      request.setRequestHeader('Content-type', 'application/json');
+    function webHook(){
 
-      var params = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        subject: document.getElementById("subject").value,
-        message: document.getElementById("message").value
-      }
+    }
+        function sendMessage() {
 
-      request.send(JSON.stringify(params));
-      window.location.replace("message_sent.html");
+       if(document.getElementById("email").value){ 
+
+        var request = new XMLHttpRequest();
+        request.open("POST", "https://hook.integromat.com/cbhxvlf9fqyftdxuwsaxrk8suv36kwtw");
+        request.setRequestHeader('Content-type', 'application/json');
+
+        var params = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            subject: document.getElementById("subject").value,
+            message: document.getElementById("message").value
+        }
+
+        request.send(JSON.stringify(params));
+        request.onreadystatechange = (e) => {
+            if (request.readyState == XMLHttpRequest.DONE){
+        
+        console.log("sent")
+        window.location.replace("message_sent.html");
+    }}
+    }else{
+        window.alert("email address is required.")
+    }
     }
 
     
@@ -72,7 +85,7 @@
                     <!--Grid column-->
                     <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
+                            <input type="email" id="email" name="email" class="form-control">
                             <label for="email" class="">Your email</label>
                         </div>
                     </div>
