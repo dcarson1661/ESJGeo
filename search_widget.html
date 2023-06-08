@@ -78,7 +78,7 @@ baseURL = "https://esjgeo.com/map.html?"
               if(results.features.length > 0){
 
               var GEOID = results.features[0].attributes.FIPS
-              var NAME = results.features[0].attributes.NAMELSAD.replace('town', '').replace('city','')
+              var NAME = results.features[0].attributes.NAMELSAD.replace('town', '').replace('city','').replace('City','')
               var STATE = results.features[0].attributes.StateAbbr
 
               window.open(baseURL + 'GEOID='+GEOID+'&place='+NAME+', '+STATE);
