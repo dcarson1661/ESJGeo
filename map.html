@@ -626,10 +626,11 @@ function generateRenderer() {
         });
 
 
-        //Make Layer List Expandable
+        //Make Histogram Expand
         var indexExpand = new Expand({
               view: view,
-              content: document.getElementById("containerDiv")
+              content: document.getElementById("containerDiv"),
+              expanded: true
               });
         view.ui.add(indexExpand, "bottom-left");
 
