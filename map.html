@@ -696,6 +696,10 @@ function generateRenderer() {
               generateRenderer()
               updateLabels()
             })
+
+            bar5.addEventListener("input", function (){
+              bar5Label.innerHTML = 'x '+this.value.toString()
+            })           
             bar5.addEventListener("click", function (){
               disableBars()
               generateRenderer()
