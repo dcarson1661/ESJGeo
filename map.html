@@ -398,11 +398,14 @@
         var labelClass = {
           // autocasts as new LabelClass()
           symbol: {
-            type: "text",  // autocasts as new TextSymbol()
-            font: {  // autocast as new Font()
+            type: "text", 
+            haloColor: "white",
+            haloSize: .8, 
+            font: { 
               family: "Playfair Display",
               size: 12,
-              weight: "bold"
+              weight: "bold",
+
             }
           },
           labelExpressionInfo: {
@@ -420,6 +423,8 @@
           document.getElementById("title").innerHTML = place
 
 
+
+
          let featureLayer = new FeatureLayer({
           url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/1",
           outFields: ["*"],
@@ -432,11 +437,33 @@
         });
         map.add(featureLayer);
 
-    
+        let placeLayer = new FeatureLayer({
+          url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0",
+          outFields: ["*"],
+          title: "Area of Interest",
+          definitionExpression: "FIPS = '"+GEOID+"'",
+          renderer: { 
+            type: "simple",  
+            symbol: {
+              type: "simple-fill",  
+              color: [ 255, 128, 0, 0 ],
+              outline: {  
+                width: 2.5,
+                color: "black",
+                style: "dash"
+              }
+            
+          }
+          }
 
-         featureLayer.when(() => {
-            return featureLayer.queryExtent();
-            view.goTo(featureLayer)
+
+
+        });
+          map.add(placeLayer);
+
+         placeLayer.when(() => {
+            return placeLayer.queryExtent();
+            view.goTo(placeLayer)
           })
           .then((response) => {
             console.log(response.extent)
@@ -626,11 +653,10 @@ function generateRenderer() {
         });
 
 
-        //Make Histogram Expand
+        //Make Layer List Expandable
         var indexExpand = new Expand({
               view: view,
-              content: document.getElementById("containerDiv"),
-              expanded: true
+              content: document.getElementById("containerDiv")
               });
         view.ui.add(indexExpand, "bottom-left");
 
