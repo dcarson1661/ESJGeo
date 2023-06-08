@@ -50,7 +50,7 @@
         
 
       const featureLayer = new FeatureLayer({
-        url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/ArcGIS/rest/services/Map/FeatureServer/0"
+        url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0"
       });
 
 baseURL = "https://esjgeo.com/map.html?"
@@ -67,7 +67,7 @@ baseURL = "https://esjgeo.com/map.html?"
             const Query = {
             spatialRelationship: "intersects", // Relationship operation to apply
             geometry: geometry,  // The sketch feature geometry
-            outFields: ["Name","STATE","GEOID"], // Attributes to return
+            outFields: ["NAMELSAD","StateAbbr","FIPS"], // Attributes to return
             returnGeometry: true
             };
 
@@ -77,9 +77,9 @@ baseURL = "https://esjgeo.com/map.html?"
 
               if(results.features.length > 0){
 
-              var GEOID = results.features[0].attributes.GEOID
-              var NAME = results.features[0].attributes.NAME
-              var STATE = results.features[0].attributes.state
+              var GEOID = results.features[0].attributes.FIPS
+              var NAME = results.features[0].attributes.NAMELSAD.replace('town', '').replace('city','')
+              var STATE = results.features[0].attributes.StateAbbr
 
               window.open(baseURL + 'GEOID='+GEOID+'&place='+NAME+', '+STATE);
               }else{
