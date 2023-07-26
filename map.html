@@ -1,812 +1,104 @@
-<!DOCTYPE html>
-<html>
-<head>
 
-  	  <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139855813-1"></script>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ESJGeo</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.svg">
+    <link rel="stylesheet" href="_css.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYH3CBY24N"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag('js', new Date());
-
-      gtag('config', 'UA-139855813-1');
+      gtag('config', 'G-HYH3CBY24N');
     </script>
-
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>ESJGeo</title>
-    <style>
-        html,
-        body,
-        #viewDiv {
-            padding: 0;
-            margin: 0;
-            height: 100%;
-            width: 100%;
-            bottom: 0;
-            right: 0;
-        }
-       
-
-        #containerSub{
-            padding: 0;
-                    margin: 0;
-                    height: 100%;
-                    width: 100%;
-                    bottom: 0;
-                    right: 0;
-                    position: relative;
-                    display: flex;
-                    flex-direction: row;
-                    
-        }
-        #container{
-            padding: 0;
-                    margin: 0;
-                    height: 100%;
-                    width: 100%;
-                    bottom: 0;
-                    right: 0;
-                    position: relative;
-                    display: flex;
-                    flex-direction: column;
-                    
-        }
-
-        #layerToggle {
-            top: 20px;
-            right: 20px;
-            position: absolute;
-            z-index: 99;
-            background-color: white;
-            border-radius: 8px;
-            padding: 10px;
-            opacity: 0.75;
-        }
-
-       #title {
-            color: rgb(255, 255, 255);
-            background-color:#7c7676;
-            font-size: 28px;
-            text-align: center;
-            padding-bottom: .5%;
-            display: flex;
-            flex-direction: column;
-            text-shadow: black 0.1em 0.1em 0.2em
-       }
-       #header{
-            color: rgb(255, 255, 255);
-            background-color:#e2dddd;
-            font-size: 28px;
-            padding-left: 1%;
-            padding-bottom: .5%;
-            display: flex;
-            flex-direction: column;
-            text-shadow: black 0.1em 0.1em 0.2em
-       }
-
-       #containerDiv {
-        background-color: white;
-        padding: 3px;
-        text-align: center;
-        min-width: 260px;
-        display: none;
-        height: 400px;
-      }
-
-       #sidePanel {
-            height: 100%;
-            width: 25%;
-            background-color: white;
-            padding: 0;
-            margin: 0;
-            left:0;
-            font-family: 'Segoe UI';
-               }
-        
-        .esri-feature-form__input {
-        resize: vertical !important;
-        }
-       .esri-view-width-less-than-large .esri-popup__action-text {  
-         display: block !important;
-        }
-       .esri-view .esri-view-surface--inset-outline:focus::after {
-        outline: none !important;
-       }
-
-      
-
-       .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
-            border-top: 8px solid #3498db; /* Blue */
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-            z-index: 10;
-
-            }
-
-            .splashBackground{
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background: rgba(7, 7, 7, 0.7);
-              z-index: 200;
-            }
-
-            .splashText{
-              z-index: 201;
-              color: white;
-              text-align: center;
-              height: 100%;
-              width: 100%;
-              margin-top:20%;           
-            }
-
-            .acceptButton {
-              position: fixed;
-              display: inline-block;
-              background: black;
-              border: none;
-              color: white;
-              padding: 15px 32px;
-              text-align: center;
-              text-decoration: none;
-              font-size: 16px;
-              margin: 4px 2px;
-              cursor: pointer;
-              z-index: 250;
-              }
-
-            .resetButton {
-                margin-left: 5%;
-              }
-
-          label {
-                margin-left: 5%;
-              }
-
-          .bars {
-              margin-left: 5%;
-              margin-right: 5%;
-              width: 90%
-              }
-
-          .info{
-            margin: 5%;
-            text-align: justify;
-          }
-
-            @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-            }
-    </style>
-
-    <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/themes/light/main.css"/>
-    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYH3CBY24N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-HYH3CBY24N');
-</script>
-
-    <script src="https://js.arcgis.com/4.20/"></script>
-
-    <script>
-        require([
-            "esri/Map",
-            "esri/views/MapView",
-            "esri/layers/FeatureLayer",
-            "esri/widgets/LayerList",
-            "esri/widgets/Sketch/SketchViewModel",
-            "esri/layers/GraphicsLayer",
-            "esri/geometry/geometryEngineAsync",
-            "esri/layers/GroupLayer",
-            "dojo/Deferred",
-            "dojo/promise/all",
-            "esri/widgets/Search",
-            "esri/widgets/Home",
-            "esri/widgets/BasemapGallery",
-            "esri/widgets/Expand",
-            "esri/tasks/Geoprocessor",
-            "esri/geometry/projection",
-            "esri/geometry/SpatialReference",
-            "esri/config",
-            "esri/widgets/Editor",
-            "esri/identity/IdentityManager",
-            "esri/core/watchUtils",
-            "esri/Graphic",
-            "esri/identity/OAuthInfo",
-            "esri/form/elements/FieldElement",
-            "esri/widgets/FeatureTemplates",
-            "esri/widgets/FeatureForm",
-            "esri/form/FormTemplate",
-            "esri/form/elements/inputs/DateTimePickerInput",
-            "esri/popup/content/AttachmentsContent",
-            "esri/popup/content/TextContent",
-            "esri/renderers/ClassBreaksRenderer",
-            "esri/smartMapping/renderers/color",
-            "esri/smartMapping/statistics/histogram",
-            "esri/widgets/smartMapping/ColorSlider",
-            "esri/smartMapping/symbology/color",
-            "esri/Viewpoint"
-
-
-        ], (
-            Map,
-            MapView,
-            FeatureLayer,
-            LayerList,
-            SketchViewModel,
-            GraphicsLayer,
-            geometryEngineAsync,
-            GroupLayer,
-            Deferred,
-            all,
-            Search,
-            Home,
-            BasemapGallery,
-            Expand,
-            Geoprocessor,
-            projection,
-            SpatialReference,
-            esriConfig,
-            Editor,
-            esriId,
-            watchUtils,
-            Graphic,
-            OAuthInfo,
-            FieldElement,
-            FeatureTemplates,
-            FeatureForm,
-            FormTemplate,
-            DateTimePickerInput,
-            AttachmentsContent,
-            TextContent,
-            ClassBreaksRenderer,
-            colorRendererCreator,
-            histogram,
-            ColorSlider,
-            colorSchemes,
-            Viewpoint
- 
-
-            
-        ) => {
-
-
-          var bar2 = document.querySelector("#bar2");
-          bar2.value = 1
-          var bar2Label = document.getElementById("bar2Label");
-          bar2Label.innerHTML = 'x ' + bar2.value.toString()
-
-          var bar3 = document.querySelector("#bar3");
-          bar3.value = 1
-          var bar3Label = document.getElementById("bar3Label");
-          bar3Label.innerHTML = 'x ' + bar3.value.toString()
-
-          var bar4 = document.querySelector("#bar4");
-          bar4.value = 1
-          var bar4Label = document.getElementById("bar4Label");
-          bar4Label.innerHTML ='x ' + bar4.value.toString()
-
-          var bar5 = document.querySelector("#bar5");
-          bar5.value = 1
-          var bar5Label = document.getElementById("bar5Label");
-          bar5Label.innerHTML ='x ' + bar5.value.toString()
-       
-       
-          // Create the Map 
-          var map = new Map({
-          basemap: "satellite"
-          })
-
-
-        // Create the MapView
-        var view = new MapView({
-          container: "viewDiv",
-          map: map,
-          zoom: 12
-        });
-
-        //Search Widget
-        const searchWidget = new Search({
-          view: view
-          });
-          view.ui.add(searchWidget, {
-          position: "top-left",
-          index: 0
-          });
-          //
-      
-          // Home button
-          var homeBtn = new Home({
-          view: view
-          });
-          view.ui.add(homeBtn, "top-left");
-          //
-
-          //basmap gallery
-          var basemapGallery = new BasemapGallery({
-          view: view,
-          container: document.createElement("div")
-          });
-
-          var bgExpand = new Expand({
-          view: view,
-          content: basemapGallery
-          });
-
-          basemapGallery.watch("activeBasemap", function() {
-          var mobileSize = view.heightBreakpoint === "xsmall" || view.widthBreakpoint === "xsmall";
-         // generateRenderer()
-
-          if (mobileSize) {
-              bgExpand.collapse();
-          }
-          });
-
-          view.ui.add(bgExpand, "bottom-right");
-          //
-
-
-      //don't allow popup to collapse
-      
-      view.popup.collapseEnabled = false;
-      view.popup.maxInlineActions = 10;
-      view.popup.dockOptions = {
-            // Disable the dock button so users cannot undock the popup
-            buttonEnabled: false,
-            // Dock the popup when the size of the view is less than or equal to 600x1000 pixels
-            breakpoint: {
-              width: 600,
-              height: 1000
-            }
-          };
-
-        //this var is casted again in generateRenderer()
-        var indexExpression = "round(Sum([$feature.LOWINCPCT_ZScore*"+bar2.value +", $feature.MINORPCT_ZScore *"+bar3.value +", $feature.UNEMPPCT_ZScore*"+bar4.value +", $feature.LINGISOPCT_ZScore*"+bar5.value +"]),2)"
-
-
-
-
-         // Create the AttachmentsContent popup element
-          // If the selected feature has attributes associated with it, they will display within the popup
-          let attachmentsElement = new AttachmentsContent({
-            displayType: "list" // this will show all attachments as a list of linked files
-          });
-
-          let contentText = new TextContent();
-          contentText.text = "Adjusted Index: {"+indexExpression+"}";
-
-            
-                    //Popup template
-
-
-      //don't allow popup to collapse
-      view.popup.collapseEnabled = false;
-
-        var labelClass = {
-          // autocasts as new LabelClass()
-          symbol: {
-            type: "text", 
-            haloColor: "white",
-            haloSize: .8, 
-            font: { 
-              family: "Playfair Display",
-              size: 12,
-              weight: "bold",
-
-            }
-          },
-          labelExpressionInfo: {
-            expression:  indexExpression
-
-          }
-        };
-
-     
-          const queryString = window.location.search;
-          const urlParams = new URLSearchParams(queryString);
-          const GEOID = urlParams.get('GEOID')
-          const place = urlParams.get('place')
-
-          document.getElementById("title").innerHTML = place
-
-
-
-
-         let featureLayer = new FeatureLayer({
-          url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/1",
-          outFields: ["*"],
-          title: "Block Groups",
-         // popupTemplate: popupTemplate,
-          //renderer: renderer,
-          labelingInfo: [labelClass],
-          opacity: .8,
-          definitionExpression: "PlaceID = '"+GEOID+"'"
-        });
-        map.add(featureLayer);
-
-        let placeLayer = new FeatureLayer({
-          url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0",
-          outFields: ["*"],
-          title: "Area of Interest",
-          definitionExpression: "FIPS = '"+GEOID+"'",
-          renderer: { 
-            type: "simple",  
-            symbol: {
-              type: "simple-fill",  
-              color: [ 255, 128, 0, 0 ],
-              outline: {  
-                width: 2.5,
-                color: "black",
-                style: "dash"
-              }
-            
-          }
-          }
-
-
-
-        });
-          map.add(placeLayer);
-
-         placeLayer.when(() => {
-            return placeLayer.queryExtent();
-            view.goTo(placeLayer)
-          })
-          .then((response) => {
-            console.log(response.extent)
-            view.goTo(response.extent);
-           
-            homeBtn.viewpoint = new Viewpoint({
-              targetGeometry: response.extent
-            });
-
-          });
- 
-watchUtils.whenFalseOnce(view, "updating", generateRenderer);
-
-function generateRenderer() {
-    indexExpression = "round(Sum([$feature.LOWINCPCT_ZScore*"+bar2.value +", $feature.MINORPCT_ZScore *"+bar3.value +", $feature.UNEMPPCT_ZScore*"+bar4.value +", $feature.LINGISOPCT_ZScore*"+bar5.value +"]),2)"
-
-    var popupTemplate = {
-          title: "Block Group: {ID}",
-          content: "Index: {expression/index}",
-          expressionInfos:[{
-              name: "index",
-              expression: indexExpression
-          },{
-              name: "LOWINC_Z",
-              expression: "round($feature.LOWINC_Z*"+bar2.value +",2)"
-          },{
-              name: "Monority_Z",
-              expression: "round($feature.MINOR_Z ,2)"
-          },{
-              name: "LINGISO_Z",
-              expression: "round($feature.LINGISO_Z ,2)"
-          }
-        ]
-        };
-
-    featureLayer.popupTemplate = popupTemplate
-
-    const colorScheme = colorSchemes.getSchemeByName({
-    basemap: map.basemap,
-    geometryType: featureLayer.geometryType,
-    theme: "above-and-below",
-    name: "Blue and Orange 5"
-  });
-
-  const colorParams = {
-    layer: featureLayer,
-    valueExpression: indexExpression,
-    view: view,
-    outlineOptimizationEnabled: true,
-    colorScheme: colorScheme
-  };
-
-  let rendererResult;
-
-  colorRendererCreator
-    .createContinuousRenderer(colorParams)
-    .then((response) => {
-      rendererResult = response;
-      featureLayer.renderer = rendererResult.renderer;
-
-      return histogram({
-        layer: featureLayer,
-        valueExpression: colorParams.valueExpression,
-        view: view,
-        numBins: 70
-      });
-    })
-
- 
-    .then((histogramResult) => {
-      document.getElementById("slider").innerHTML = ''
-
-      var colorSlider = ColorSlider.fromRendererResult(
-        rendererResult,
-        histogramResult
-      );
-  
-      colorSlider.container = "slider";
-      colorSlider.primaryHandleEnabled = true;
-      // Round labels to 1 decimal place
-      colorSlider.labelFormatFunction = (value, type) => {
-        return value.toFixed(1);
-      };
-      colorSlider.viewModel.precision = 1;
-      //view.ui.add("containerDiv", "bottom-left");
-      document.getElementById("containerDiv").style.display = "block"
-      enableBars()
- 
- 
-      // When the user slides the handle(s), update the renderer
-      // with the updated color visual variable object
-      function changeEventHandler() {
-        var renderer = featureLayer.renderer.clone();
-        var colorVariable = renderer.visualVariables[0].clone();
-        var outlineVariable = renderer.visualVariables[1];
-        colorVariable.stops = colorSlider.stops;
-        renderer.visualVariables = [colorVariable, outlineVariable];
-        featureLayer.renderer = renderer;
-      }
-
-      colorSlider.on(
-        ["thumb-change", "thumb-drag", "min-change", "max-change"],
-        changeEventHandler
-      );
-     
-    })
-    .catch((error) => {
-      console.error("Error: ", error);
-    });
-}
-
-        function updateLabels(){
-          featureLayer.labelingInfo[0].labelExpressionInfo.expression = indexExpression
-
-        }
-
-         //layerList with Legend & Actions //
-          const layerList = new LayerList({
-          view: view,
-          index: 1,
-          listItemCreatedFunction: function (event) {
-              const item = event.item;
-
-              //Add group layer actions
-  
-              item.actionsSections = [
-                          
-            [
-              {
-                title: "Increase opacity",
-                className: "esri-icon-up",
-                id: "increase-opacity"
-              },
-              {
-                title: "Decrease opacity",
-                className: "esri-icon-down",
-                id: "decrease-opacity"
-              }
-            ]
-          ];
-              
-
-
-            //Add Legend to Layer List
-            if (item.layer.type != "group") {
-                  item.panel = {
-                      content: "legend",
-                      open: true
-                  };
-              }
-          } 
-      });
-
-      //LayerList Actions Function
-        layerList.on("trigger-action", function(event) {
-
-          var actionLayers = event.item.layer.layers
-          var actionLayer = event.item.layer
-
-          var id = event.action.id;
-
-          if (id === "increase-opacity") {
-        
-            if (actionLayer.opacity < 1) {
-              actionLayer.opacity += 0.10;
-            }
-
-          }else if (id === "decrease-opacity") {
-            if (actionLayer.opacity > 0) {
-              actionLayer.opacity -= 0.10;
-          }
-
-          }else if (id === "toggle-labels"){
-          
-            if(actionLayers.items[0].labelsVisible === false){
-             
-              actionLayers.forEach(element => {
-                  element.labelsVisible = true
-                });
-            }else{
-              actionLayers.forEach(element => {
-                  element.labelsVisible = false
-                });
-            }
-  
-            }
-        });
-
-
-        //Make index Expand
-        var indexExpand = new Expand({
-              view: view,
-              content: document.getElementById("containerDiv"),
-              expanded: true
-              });
-        view.ui.add(indexExpand, "bottom-left");
-
-        //Make Layer List Expandable
-        var LLExpand = new Expand({
-              view: view,
-              content: layerList
-              });
-
-            layerList.watch("activeBasemap", function() {
-            var mobileSize = view.heightBreakpoint === "xsmall" || view.widthBreakpoint === "xsmall";
-
-            if (mobileSize) {
-              LLExpand.collapse();
-            }
-            });
-
-            view.ui.add(LLExpand, "top-right");
-  
-      //
-
-            function disableBars(){
-              document.getElementById("bar2").disabled = true;
-              document.getElementById("bar3").disabled = true;
-              document.getElementById("bar4").disabled = true;
-              document.getElementById("bar5").disabled = true;
-              document.getElementById("resetButton").disabled = true;
-            }
-
-            function enableBars(){
-              document.getElementById("bar2").disabled = false;
-              document.getElementById("bar3").disabled = false;
-              document.getElementById("bar4").disabled = false;
-              document.getElementById("bar5").disabled = false;
-              document.getElementById("resetButton").disabled = false;
-            }
-
-
-            //Event listener for Sliders. One for input to update the label and one click to update the map
-
-            bar2.addEventListener("input", function (){
-              bar2Label.innerHTML = 'x '+this.value.toString()
-            })
-            bar2.addEventListener("click", function (){
-              disableBars()
-              generateRenderer()
-              updateLabels()
-            })
-
-            bar3.addEventListener("input", function (){
-              bar3Label.innerHTML = 'x '+this.value.toString()
-            })
-            bar3.addEventListener("click", function (){
-              disableBars()
-              generateRenderer()
-              updateLabels()
-            })
-
-            bar4.addEventListener("input", function (){
-              bar4Label.innerHTML = 'x '+this.value.toString()
-            })
-            bar4.addEventListener("click", function (){
-              disableBars()
-              generateRenderer()
-              updateLabels()
-            })
-
-            bar5.addEventListener("input", function (){
-              bar5Label.innerHTML = 'x '+this.value.toString()
-            })           
-            bar5.addEventListener("click", function (){
-              disableBars()
-              generateRenderer()
-              updateLabels()
-            })
-
-
-            //resetButton event listener to reset the weights and map back to equal weights
-          var resetButton = document.getElementById("resetButton");
-            resetButton.addEventListener("click", function (){
-
-
-              document.querySelector("#bar2").value = 1
-              document.getElementById("bar2Label").innerHTML = 'x '+(document.querySelector("#bar2").value).toString()
-
-              document.querySelector("#bar3").value = 1
-              document.getElementById("bar3Label").innerHTML = 'x '+(document.querySelector("#bar3").value).toString()
-
-              document.querySelector("#bar4").value = 1
-              document.getElementById("bar4Label").innerHTML = 'x '+(document.querySelector("#bar4").value).toString()
-
-              document.querySelector("#bar5").value = 1
-              document.getElementById("bar5Label").innerHTML = 'x '+(document.querySelector("#bar5").value).toString()
-              
-              disableBars()
-              generateRenderer()
-              updateLabels()
-            })
-      });
-  
-    </script>
+    <script type="module" src=https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js></script>
+    <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/1.4.3/calcite.css />
+
+    <script src="https://js.arcgis.com/4.24/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
+    <script src="mapjs.js"></script>
   </head>
-
   <body>
-    <div id="container">
-      
- 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
     
-    <a class="navbar-brand" href="index.html"><a href="index.html"><img src="images/logo.svg" height="auto" width="160px" data-holder-rendered="true">
-    </a>
-  </nav>
+    <calcite-loader label="creating results..."></calcite-loader>
+    <calcite-shell>
+      
+     
+      <calcite-navigation slot="header">
+        <calcite-navigation-logo id="title" slot="logo" heading="ESJ-Geo"  thumbnail="./images/favicon.svg"></calcite-navigation-logo>
+      </calcite-navigation>
+
+      <calcite-shell-panel id="weightsShellPanel" slot="panel-start" resizable="true" detached="false" position="start" width-scale="m" display-mode="dock">
+
+        <calcite-action-bar id="actionBar" slot="action-bar" expanded>
+          <calcite-action-group>
+            <calcite-action id="basemapAction" text="Basemap Gallary" icon="basemap"></calcite-action>
+            <calcite-action id="layersAction" text="Layer List" icon="layers"></calcite-action>
+            <calcite-action id="indexAction" text="Index Histogram" icon="graph-histogram"></calcite-action>
+            <calcite-action id="weightsAction" active text="Variable Weights" icon="sliders-horizontal"></calcite-action>
+         </calcite-action-group>
+        </calcite-action-bar>
+
+        <calcite-panel id="weightsPanel" heading="Variable Weights" closable>
+
+              <calcite-label style="padding: 5% 5% 0% 5%" scale="l">
+                Percent Low Income
+                <calcite-slider id="bar2" value="1" label-handles label-ticks max="2" step="0.1" scale="l"></calcite-slider>
+            </calcite-label>
+
+            <calcite-label style="padding: 0% 5% 0% 5%" scale="l">
+              Percent Minority Population
+              <calcite-slider id="bar3" value="1" label-handles label-ticks max="2" step="0.1" scale="l"></calcite-slider>
+          </calcite-label>
+ 
+          <calcite-label style="padding: 0% 5% 0% 5%" scale="l">
+            Percent Unemployed
+            <calcite-slider id="bar4" value="1" label-handles label-ticks max="2" step="0.1" scale="l"></calcite-slider>
+        </calcite-label>
+
+        <calcite-label style="padding: 0% 5% 0% 5%" scale="l">
+          Percent Linguistically Isolated
+          <calcite-slider id="bar5" value="1" label-handles label-ticks max="2" step="0.1" scale="l"></calcite-slider>
+      </calcite-label>
+ 
+          <calcite-button id = "resetButton"  width="half" slot="footer">Reset Weights</calcite-button>
+        
+        </calcite-panel>
+      </calcite-shell-panel>
+
+      <calcite-shell-panel id = "indexShellPanel" slot="panel-start" resizable="true" detached="false" position="start" width-scale="m" display-mode="dock" collapsed="true">
+        <calcite-panel id="indexPanel" heading = "Adjusted index"  closable>
+          <div id="slider"></div>
+        </calcite-panel>
+      </calcite-shell-panel>
+
+      <calcite-shell-panel id = "basemapShellPanel" slot="panel-start" resizable="true" detached="false" position="start" width-scale="m" display-mode="dock" collapsed="true">
+        <calcite-panel id="basemapPanel" heading = "Basemap Gallary"  closable>
+       
+        </calcite-panel>
+      </calcite-shell-panel>
+
+      <calcite-shell-panel id = "layersShellPanel" slot="panel-start" resizable="true" detached="false" position="start" width-scale="l" display-mode="dock" collapsed="true">
+        <calcite-panel id="layersPanel" heading = "Layer List"  closable>
+          <div id="layerListDiv"></div>
+        </calcite-panel>
+      </calcite-shell-panel>
+      
+      <div slot="center-row" id="viewDiv"></div>
+
+  
+</calcite-panel>
+
+
+  
         
 
- 
-    <div id="containerSub">
-        <div id="sidePanel">
-          
-            <p class="info"><div id="title"></div> </p>
-<br>
-            <label for="bar2">Percent Low Income</label><br>
-            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar2"/>
-            <label id="bar2Label" for="bar2"></label><br><br><br>
-
-            <label for="bar3">Percent Minority Population </label><br>
-            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar3"/>
-            <label id="bar3Label" for="bar3"></label><br><br><br>
-
-            <label for="bar4">Percent Unemployed</label><br>
-            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar4"/>
-            <label id="bar4Label" for="bar4"></label><br><br><br>
-
-            <label for="bar5">Percent Linguistically Isolated</label><br>
-            <input type="range" class="bars" min="0" max="2" step=".1" class="slider" id="bar5"/>
-            <label id="bar5Label" for="bar5"></label><br><br><br>
-
-            <button id = "resetButton" class="btn btn-primary" style="margin-left: 5%;">Reset Weights</button>
-          
-        </div>
-        <div id="viewDiv"></div>
-        <div id="containerDiv" class="esri-widget">
-          <span id="title" class="esri-widget">Adjusted Index</span>
-          <div id="slider"></div>
-        </div>
-    </div>
-</div>
     
-    
-
-</body>
+  </calcite-shell>
+  </body>
 </html>
+
