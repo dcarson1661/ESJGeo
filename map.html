@@ -29,8 +29,20 @@
       
      
       <calcite-navigation slot="header">
-        <calcite-navigation-logo id="title" slot="logo" heading="ESJ-Geo"  thumbnail="./images/favicon.svg" href="https://esjgeo.com"></calcite-navigation-logo>
-      </calcite-navigation>
+        <calcite-navigation-logo id="title" slot="logo" heading="ESJGeo"  thumbnail="./images/favicon.svg" href="https://esjgeo.com">
+      </calcite-navigation-logo>
+      <calcite-dropdown width="m" slot="content-end">
+        <calcite-action text="Menu" icon="hamburger" text-enabled slot="trigger"></calcite-action>
+        <calcite-dropdown-group>
+            <calcite-dropdown-item icon-start="home" href="./index.html">Home</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="search" href="./search.html">Search</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="information" href="./intro.html">Introduction</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="education" href="./learn.html">Learn ESJGeo</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="vertical-distribute" href="./results.html">Understand Results</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="email-address" href="./contact.html">Contact Us</calcite-dropdown-item>
+        </calcite-dropdown-group>
+    </calcite-dropdown>
+</calcite-navigation>
 
       <calcite-shell-panel id="weightsShellPanel" slot="panel-start" resizable="true" detached="false" position="start" width-scale="m" display-mode="dock">
 
