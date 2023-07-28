@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    	  <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139855813-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+
+      function gtag() {
+          dataLayer.push(arguments);
+      }
       gtag('js', new Date());
 
       gtag('config', 'UA-139855813-1');
-    </script>
+          </script>
 
-    <script>
-    function sendMessage() {
-  
-        console.log(document.getElementById("name").value)
+          <script>
+      
+      function sendMessage() {
+
+      console.log(document.getElementById("name").value)
       var request = new XMLHttpRequest();
       request.open("POST", "https://hook.integromat.com/cbhxvlf9fqyftdxuwsaxrk8suv36kwtw");
 
       request.setRequestHeader('Content-type', 'application/json');
 
       var params = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        subject: document.getElementById("subject").value,
-        message: document.getElementById("message").value
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          subject: document.getElementById("subject").value,
+          message: document.getElementById("message").value
       }
 
       request.send(JSON.stringify(params));
       window.location.replace("http://www.w3schools.com");
-    }
-
-    
+      }
 
     </script>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,41 +43,37 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-      
-      <a class="navbar-brand" href="index.html"><a href="index.html"><img src="images/logo.svg" height="auto" width="160px" data-holder-rendered="true">
-      </a>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-          
-      <li class="nav-item"> <a class="nav-link" href="learn.html">Learn</a> </li>
-      <p class="nav-item nav-link">|</p>
-      <li class="nav-item"> <a class="nav-link" href="results.html">Understanding Results</a> </li>
-      <p class="nav-item nav-link">|</p>
-			<li class="nav-item"> <a class="nav-link" href="search.html">Search</a> </li>
-          
-        </ul>
-      </div>
-    </nav>
-    <p>&nbsp;</p>
-    
-    <div class="container ">
-  
-			  			
-          <iframe src="contact-form.html" height='600px' width='100%' frameborder="0px"></iframe><br><br>
-
-    
-</div>
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-    <script src="js/jquery-3.4.1.min.js"></script> 
-    <!-- Include all compiled plugins (below), or include individual files as needed --> 
-    <script src="js/popper.min.js"></script> 
-    <script src="js/bootstrap-4.4.1.js"></script>
-  </body>
-</html>
+    <!-- Calcite -->
+    <script type="module" src=https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js></script>
+    <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/1.4.3/calcite.css />
+    </head>
+    <body>
+      <calcite-shell>
+        <calcite-navigation slot="header">
+          <calcite-navigation-logo id="title" slot="logo" heading="ESJGeo" thumbnail="./images/favicon.svg" href="https://esjgeo.com"></calcite-navigation-logo>
+          <calcite-dropdown width="m" slot="content-end">
+            <calcite-action text="Menu" icon="hamburger" text-enabled slot="trigger"></calcite-action>
+            <calcite-dropdown-group>
+              <calcite-dropdown-item icon-start="home" href="./index.html">Home</calcite-dropdown-item>
+              <calcite-dropdown-item icon-start="search" href="./search.html">Search</calcite-dropdown-item>
+              <calcite-dropdown-item icon-start="information" href="./intro.html">Introduction</calcite-dropdown-item>
+              <calcite-dropdown-item icon-start="education" href="./learn.html">Learn ESJGeo</calcite-dropdown-item>
+              <calcite-dropdown-item icon-start="vertical-distribute" href="./results.html">Understand Results</calcite-dropdown-item>
+              <calcite-dropdown-item icon-start="email-address" href="./contact.html">Contact Us</calcite-dropdown-item>
+            </calcite-dropdown-group>
+          </calcite-dropdown>
+        </calcite-navigation>
+        <p>&nbsp;</p>
+        <div class="container ">
+          <iframe src="contact-form.html" height='600px' width='100%' frameborder="0px"></iframe>
+          <br>
+          <br>
+        </div>
+      </calcite-shell>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap-4.4.1.js"></script>
+    </body>
+    </html>

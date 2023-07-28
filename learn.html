@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    	  <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139855813-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
       gtag('config', 'UA-139855813-1');
     </script>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,66 +19,54 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <!-- Calcite -->
+    <script type="module" src=https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js></script>
+    <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/1.4.3/calcite.css />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-      
-      <a class="navbar-brand" href="index.html"><a href="index.html"><img src="images/logo.svg" height="auto" width="160px" data-holder-rendered="true">
-      </a>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-          
-			<li class="nav-item"> <a class="nav-link" href="intro.html">Introduction</a> </li>
-      <p class="nav-item nav-link">|</p>
-      <li class="nav-item"> <a class="nav-link" href="results.html">Understanding Results</a> </li>
-      <p class="nav-item nav-link">|</p>
-			<li class="nav-item"> <a class="nav-link" href="search.html">Search</a> </li>
-      <p class="nav-item nav-link">|</p>
-      <li class="nav-item"> <a class="nav-link" href="contact.html">Contact</a> </li>
-          
-        </ul>
-      </div>
-    </nav>
-    <header>
-      <div class="jumbotron">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <h1 class="text-center">Learn to Use ESJ-Geo</h1>
-
-
+    <calcite-shell>
+      <calcite-navigation slot="header">
+        <calcite-navigation-logo id="title" slot="logo" heading="ESJGeo" thumbnail="./images/favicon.svg" href="https://esjgeo.com"></calcite-navigation-logo>
+        <calcite-dropdown width="m" slot="content-end">
+          <calcite-action text="Menu" icon="hamburger" text-enabled slot="trigger"></calcite-action>
+          <calcite-dropdown-group>
+            <calcite-dropdown-item icon-start="home" href="./index.html">Home</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="search" href="./search.html">Search</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="information" href="./intro.html">Introduction</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="education" href="./learn.html">Learn ESJGeo</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="vertical-distribute" href="./results.html">Understand Results</calcite-dropdown-item>
+            <calcite-dropdown-item icon-start="email-address" href="./contact.html">Contact Us</calcite-dropdown-item>
+          </calcite-dropdown-group>
+        </calcite-dropdown>
+      </calcite-navigation>
+      <header>
+        <div class="jumbotron">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h1 class="text-center">Learn to Use ESJ-Geo</h1>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
-    <div class="container ">
-      <div class="row">
-
-        <div class="col-sm-6 col-lg-6 col-xl-12" >
-			<div align="center">
-
-		  </div>
-          <blockquote class="blockquote">
-			  			
-
-            <h4>Getting Started:</h4>
-            <p class="mb-0">From the ESJGeo Home page you will is a Green Search button(also found at the bottom of this page). Clicking the Search button with take you to the Search page.
-				<p>&nbsp;</p>
-			  <img src="images/search.png" alt="" width="1363" height="875" class="img-thumbnail"/>
-			  <p>&nbsp;</p>
-			  Once you have found your area of interest you will be presented with a link to view the results. Clicking the link will open the results map for your given area of interest
-			  <p>&nbsp;</p>
-			  <img src="images/ESJGeo.png" alt="" width="1363" height="875" class="img-thumbnail"/> 
-			  <p>&nbsp;</p>
-			  Once the map is displayed the user can adjust the variables in the left side panel. The results will dynamiclly be displayed on the map.</p>
-            <p>&nbsp;</p>
-          </blockquote>
+      </header>
+      <div class="container ">
+        <div class="row">
+          <div class="col-sm-6 col-lg-6 col-xl-12">
+            <div align="center"></div>
+            <blockquote class="blockquote">
+              <h4>Getting Started:</h4>
+              <p class="mb-0">From the ESJGeo Home page you will is a Green Search button(also found at the bottom of this page). Clicking the Search button with take you to the Search page.
+              <p>&nbsp;</p>
+              <img src="images/search.png" alt="" width="1363" height="875" class="img-thumbnail" />
+              <p>&nbsp;</p> Once you have found your area of interest you will be presented with a link to view the results. Clicking the link will open the results map for your given area of interest <p>&nbsp;</p>
+              <img src="images/ESJGeo.png" alt="" width="1363" height="875" class="img-thumbnail" />
+              <p>&nbsp;</p> Once the map is displayed the user can adjust the variables in the left side panel. The results will dynamiclly be displayed on the map. </p>
+              <p>&nbsp;</p>
+            </blockquote>
+          </div>
         </div>
       </div>
-</div>
       <div class="jumbotron" style="width:100%">
         <div class="container">
           <div class="row">
@@ -86,36 +75,33 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-4 col-auto mx-auto"> <a class="btn btn-block btn-lg btn-success" href="search.html" title="">Search</a> </div>
+            <div class="col-sm-4 col-auto mx-auto">
+              <a class="btn btn-block btn-lg btn-success" href="search.html" title="">Search</a>
+            </div>
           </div>
         </div>
       </div>
-      <div class="container">
-
-          </div>
-        <div class="row">
-          <div class="col-sm-6 col-lg-4">
+      <div class="container"></div>
+      <div class="row">
+        <div class="col-sm-6 col-lg-4"></div>
+      </div>
+      </div>
+      </section>
+      <div class="container"></div>
+      <footer class="text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <p>Copyright © ESJ-Geo. All rights reserved.</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-    <div class="container">
-
-
-    </div>
-    <footer class="text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <p>Copyright © ESJ-Geo. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-    <script src="js/jquery-3.4.1.min.js"></script> 
-    <!-- Include all compiled plugins (below), or include individual files as needed --> 
-    <script src="js/popper.min.js"></script> 
+      </footer>
+    </calcite-shell>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.4.1.js"></script>
   </body>
 </html>
