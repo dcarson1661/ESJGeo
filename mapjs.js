@@ -182,7 +182,7 @@ require([
 
     placeLayer.when(() => {
             return placeLayer.queryExtent();
-            //view.goTo(placeLayer)
+            view.goTo(placeLayer)
         })
         .then((response) => {
             view.goTo(response.extent);
@@ -207,23 +207,33 @@ require([
             stdDev = stdDev.toFixed(1)
             console.log(stats.stddev);
 
+		
+
             var content = `
 				The population in this area is <b>{expression/stdDevMSG}</b> relative to other areas in ${place}</b><br><br>
+
+				<img src="https://esjgeo.com/images/Histogram_{expression/IMG}.svg" alt="mean" >
+
+				<br>
 				Percent Low Income: {expression/LOWINCPCT}<br>
 				Percent Minority Population: {expression/MINORPCT}<br>
 				Percent Unemployed: {expression/UNEMPPCT}<br>
 				Percent Linguistically Isolated: {expression/LINGISOPCT}<br>
-				<div id=histogramPopupDiv></div>
-			`
+				{expression/meanIMG}{expression/posIMG}{expression/negIMG}<br>
+				`
+				
             var stdDevMSGExpression = `
-				if(${indexExpression}>${stdDev}){
-					return "statistically significantly MORE vulnerable"
-				}else if(${indexExpression}<(${stdDev}*-1)){
-					return "statistically significantly LESS vulnerable"
-				}else{
-					return "similarly vulnerable"
-				}
-		    `
+		if(${indexExpression}>${stdDev}){
+			return "statistically significantly MORE vulnerable"
+		}else if(${indexExpression}<(${stdDev}*-1)){
+			return "statistically significantly LESS vulnerable"
+		}else{
+			return "similarly vulnerable"
+		}
+`
+
+	
+
 
             var popupTemplate = {
                 title: "Adjusted Index: {expression/index}",
@@ -251,6 +261,19 @@ require([
                     {
                         name: "stdDevMSG",
                         expression: stdDevMSGExpression
+                    },
+                    {
+                        name: "IMG",
+                        expression: `
+						if(${indexExpression}>${stdDev}){
+							return "pos"
+						}else if(${indexExpression}<(${stdDev}*-1)){
+							return "neg"
+						}else{
+							return "Mean"
+						}
+				`
+								
                     }
                 ]
             };
@@ -289,7 +312,12 @@ require([
                     view: view,
                     numBins: 70
                 });
-            }).then((histogramResult) => {
+            })
+
+
+
+
+            .then((histogramResult) => {
                 console.log(histogramResult)
                 document.getElementById("slider").innerHTML = ''
 
@@ -324,6 +352,7 @@ require([
                 );
 
             })
+
             
     }
 
