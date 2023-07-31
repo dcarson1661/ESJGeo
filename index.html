@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <script data-ad-client="ca-pub-5075512588446723" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139855813-1"></script>
@@ -13,17 +14,28 @@
       gtag('js', new Date());
       gtag('config', 'UA-139855813-1');
     </script>
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="ESJ, Equiity, Social Justice, GIS, Geographic Information, ESJGeo, ESJ Geo, ESJGeo, DEI">
+    
     <title>ESJGeo</title>
+   
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css"/>
+
+    <script src="search_widget.js"></script>
+    
     <!-- Calcite -->
     <script type="module" src=https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js></script>
     <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/1.4.3/calcite.css />
+    
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    
   </head>
   <body style="  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, " Segoe UI", Roboto, "Helvetica Neue" , Arial, "Noto Sans" , sans-serif, "Apple Color Emoji" , "Segoe UI Emoji" , "Segoe UI Symbol" , "Noto Color Emoji" ; --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono" , "Courier New" , monospace;">
     <calcite-shell>
@@ -62,7 +74,18 @@
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
-            <iframe src="search_widget.html" frameborder="0px" height='200px' width='100%'></iframe>
+
+      
+            <div id="label" style="  text-align: center; color:white; text-shadow: black 0.1em 0.1em 0.2em; font-size:x-large">Search to view results for your community!</div>
+            <div style="margin:auto;" id="searchDiv"></div>
+          </div>
+      <br>
+      <calcite-alert id="alert" icon="x-circle" kind="danger" label="alert" scale="m" auto-close>
+        <div slot="title">No results found </div>
+        <div slot="message">A ESJGeo community was not found for the provided search term. Please try again</div>
+        <calcite-link slot="link" href="./contact.html">Need help?</calcite-link>
+    </calcite-alert>
+ 
           </div>
         </div>
       </header>
@@ -153,7 +176,7 @@
           </div>
           <p>&nbsp;</p>
           <div style="text-align: center">
-            <a class="btn btn-primary btn-lg" href="contact.html" title="">CONTACT US</a>
+            <calcite-button  href="contact.html" scale="l">CONTACT US</calcite-button>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
           </div>
@@ -168,10 +191,6 @@
           </div>
         </footer>
     </calcite-shell>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
+
   </body>
 </html>
