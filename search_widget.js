@@ -25,7 +25,7 @@ require([
             maxSuggestions: 4,
             suggestionsEnabled: true,
             minSuggestCharacters: 4,
-            placeholder: " ",
+            placeholder: "City, State",
         }]
     })
 
