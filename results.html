@@ -15,7 +15,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ESJ-Geo</title>
+    <title>ESJGeo</title>
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css"/>
+
+    <script src="search_widget.js"></script>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -31,7 +35,6 @@
           <calcite-action text="Menu" icon="hamburger" text-enabled slot="trigger"></calcite-action>
           <calcite-dropdown-group>
             <calcite-dropdown-item icon-start="home" href="./index.html">Home</calcite-dropdown-item>
-            <calcite-dropdown-item icon-start="search" href="./search.html">Search</calcite-dropdown-item>
             <calcite-dropdown-item icon-start="information" href="./intro.html">Introduction</calcite-dropdown-item>
             <calcite-dropdown-item icon-start="education" href="./learn.html">Learn ESJGeo</calcite-dropdown-item>
             <calcite-dropdown-item icon-start="vertical-distribute" href="./results.html">Understand Results</calcite-dropdown-item>
@@ -44,7 +47,7 @@
           <div class="container">
             <div class="row">
               <div class="col-12">
-                <h1 class="text-center">Understanding ESJ-Geo Results</h1>
+                <h1 class="text-center">Understanding ESJGeo Results</h1>
               </div>
             </div>
           </div>
@@ -55,13 +58,13 @@
           <div class="col-sm-6 col-lg-6 col-xl-12">
             <div align="center">
               <blockquote class="blockquote">
-                <p class="mb-0">In the sections below we will review ESJ-Geo results and how to intererpt them. </p>
+                <p class="mb-0">In the sections below we will review ESJGeo results and how to intererpt them. </p>
                 <p class="mb-0">&nbsp;</p>
                 <h4 class="text-left">Geographies:</h4>
-                <p class="text-left">Census Block Groups are the evaluated areas in ESJ-Geo. Block Groups are statistical divisions of census tracts and are generally defined to contain between 600 and 3,000 people. Block Groups were selected due to the fact that they are the smallest geographies avaiable that include demographic data. </p>
+                <p class="text-left">Census Block Groups are the evaluated areas in ESJGeo. Block Groups are statistical divisions of census tracts and are generally defined to contain between 600 and 3,000 people. Block Groups were selected due to the fact that they are the smallest geographies avaiable that include demographic data. </p>
                 <p class="mb-0">&nbsp;</p>
                 <h4 class="text-left">Normalisation:</h4>
-                <p class="text-left">Each variable used in ESJ-Geo is standardised using a statistical normalization in the form of a standard score (z-score)</p>
+                <p class="text-left">Each variable used in ESJGeo is standardised using a statistical normalization in the form of a standard score (z-score)</p>
                 <img src="images/Z-score-formula.jpg" alt="" width="300" class="img-thumbnail" />
                 <p class="mb-0">&nbsp;</p>
                 <h4 class="text-left">Final Adjusted Index:</h4>
@@ -73,41 +76,67 @@
             </div>
           </div>
         </div>
+
+
+        <div class="container ">
+          <div class="row">
+            <div class="container ">
+              <div class="row">
+                
+  
+                <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                  <a href="map.html?GEOID=5333805&place=Issaquah, Washington">
+                    <img src="images/Issaquah.png" data-holder-rendered="true">
+                  </a>
+                  <h3>Issaquah, WA</h3>
+                  <p>Launch ESJGeo and view <br> results for this featured City </p>
+                </div>
+  
+                <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                  <a href="map.html?GEOID=4075000&place=Tulsa,%20OK">
+                    <img src="images/Auburn.png" data-holder-rendered="true">
+                  </a>
+                  <h3>Tulsa, OK</h3>
+                  <p>Launch ESJGeo and view <br> results for this featured City </p>
+                </div>
+  
+                <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                  <a href="map.html?GEOID=4202000&place=Allentown,%20PA">
+                    <img src="images/Bellevue.png" data-holder-rendered="true">
+                  </a>
+                  <h3>Allentown, PA</h3>
+                  <p>Launch ESJGeo and view <br> results for this featured City </p>
+                </div>
+                <h2>&nbsp;</h2>
+              </div>
+              <div class="row"></div>
+            </div>
+          </div>
+        </div>
+  
         <div class="jumbotron" style="width:100%">
           <div class="container">
             <div class="row">
               <div class="text-center col-md-8 col-12 mx-auto">
-                <p class="lead">Click below to view results for your community!</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4 col-auto mx-auto">
-                <a class="btn btn-block btn-lg btn-success" href="search.html" title="">Search</a>
+                <div id="label" style="  text-align: center; color:white; text-shadow: black 0.1em 0.1em 0.2em; font-size:x-large">Search to view results for your community!</div>
+                <div style="margin:auto;" id="searchDiv"></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="container"></div>
-        <div class="row">
-          <div class="col-sm-6 col-lg-4"></div>
-        </div>
-      </div>
-      </section>
+
+
+
       <div class="container"></div>
       <footer class="text-center">
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <p>Copyright © ESJ-Geo. All rights reserved.</p>
+              <p>Copyright © ESJGeo. All rights reserved.</p>
             </div>
           </div>
         </div>
       </footer>
     </calcite-shell>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
   </body>
 </html>
