@@ -16,6 +16,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ESJ-Geo</title>
+
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css"/>
+
+    <script src="search_widget.js"></script>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -31,7 +36,6 @@
           <calcite-action text="Menu" icon="hamburger" text-enabled slot="trigger"></calcite-action>
           <calcite-dropdown-group>
             <calcite-dropdown-item icon-start="home" href="./index.html">Home</calcite-dropdown-item>
-            <calcite-dropdown-item icon-start="search" href="./search.html">Search</calcite-dropdown-item>
             <calcite-dropdown-item icon-start="information" href="./intro.html">Introduction</calcite-dropdown-item>
             <calcite-dropdown-item icon-start="education" href="./learn.html">Learn ESJGeo</calcite-dropdown-item>
             <calcite-dropdown-item icon-start="vertical-distribute" href="./results.html">Understand Results</calcite-dropdown-item>
@@ -56,38 +60,66 @@
             <div align="center"></div>
             <blockquote class="blockquote">
               <h4>Getting Started:</h4>
-              <p class="mb-0">From the ESJGeo Home page you will is a Green Search button(also found at the bottom of this page). Clicking the Search button with take you to the Search page.
+              <p class="mb-0">From the ESJGeo Home page you can use the search function to open ESJGeo to a community that interests you.
               <p>&nbsp;</p>
-              <img src="images/search.png" alt="" width="1363" height="875" class="img-thumbnail" />
-              <p>&nbsp;</p> Once you have found your area of interest you will be presented with a link to view the results. Clicking the link will open the results map for your given area of interest <p>&nbsp;</p>
+              <div class="jumbotron" style="width:100%">
+                <div class="container">
+                  <div class="row">
+                    <div class="text-center col-md-8 col-12 mx-auto">
+                      <div id="label" style="  text-align: center; color:white; text-shadow: black 0.1em 0.1em 0.2em; font-size:x-large">Search to view results for your community!</div>
+                      <div style="margin:auto;" id="searchDiv"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p>&nbsp;</p> Once you have found your area of interest you will automatically be take to the map.<p>&nbsp;</p>
               <img src="images/ESJGeo.png" alt="" width="1363" height="875" class="img-thumbnail" />
-              <p>&nbsp;</p> Once the map is displayed the user can adjust the variables in the left side panel. The results will dynamiclly be displayed on the map. </p>
+              <p>&nbsp;</p> Once the map is displayed you can adjust the variables in the left side panel. The results will dynamiclly be displayed on the map. You can also change the basemap, udjust the color ramp and toggle layers on and off. </p>
               <p>&nbsp;</p>
             </blockquote>
           </div>
         </div>
       </div>
-      <div class="jumbotron" style="width:100%">
-        <div class="container">
-          <div class="row">
-            <div class="text-center col-md-8 col-12 mx-auto">
-              <p class="lead">Click below to view results for your community!</p>
+    
+
+      <div class="container ">
+        <div class="row">
+          <div class="container ">
+            <div class="row">
+              
+
+              <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                <a href="map.html?GEOID=5333805&place=Issaquah, Washington">
+                  <img src="images/Issaquah.png" data-holder-rendered="true">
+                </a>
+                <h3>Issaquah, WA</h3>
+                <p>Launch ESJGeo and view <br> results for this featured City </p>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                <a href="map.html?GEOID=4075000&place=Tulsa,%20OK">
+                  <img src="images/Auburn.png" data-holder-rendered="true">
+                </a>
+                <h3>Tulsa, OK</h3>
+                <p>Launch ESJGeo and view <br> results for this featured City </p>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                <a href="map.html?GEOID=4202000&place=Allentown,%20PA">
+                  <img src="images/Bellevue.png" data-holder-rendered="true">
+                </a>
+                <h3>Allentown, PA</h3>
+                <p>Launch ESJGeo and view <br> results for this featured City </p>
+              </div>
+              <h2>&nbsp;</h2>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4 col-auto mx-auto">
-              <a class="btn btn-block btn-lg btn-success" href="search.html" title="">Search</a>
-            </div>
+            <div class="row"></div>
           </div>
         </div>
       </div>
-      <div class="container"></div>
-      <div class="row">
-        <div class="col-sm-6 col-lg-4"></div>
-      </div>
-      </div>
-      </section>
-      <div class="container"></div>
+
+
+
       <footer class="text-center">
         <div class="container">
           <div class="row">
@@ -98,10 +130,5 @@
         </div>
       </footer>
     </calcite-shell>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
   </body>
 </html>
