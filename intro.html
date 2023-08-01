@@ -15,10 +15,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ESJ-Geo</title>
+    <title>ESJGeo</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css"/>
+
+    <script src="search_widget.js"></script>
+
     <!-- Calcite -->
     <script type="module" src=https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js></script>
     <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/1.4.3/calcite.css />
@@ -44,7 +50,7 @@
           <div class="container">
             <div class="row">
               <div class="col-12">
-                <h1 class="text-center">What is ESJ-Geo?</h1>
+                <h1 class="text-center">What is ESJGeo?</h1>
               </div>
             </div>
           </div>
@@ -54,32 +60,65 @@
         <div class="row">
           <div class="col-sm-6 col-lg-6 col-xl-12">
             <blockquote class="blockquote">
-              <p class="mb-0">ESJ-Geo is a mapping and screening tool that provides communities with a nationally consistent approach for combining various indicators. Users choose a geographic area, and select weights from a list of variables; the tool then provides a final weighted index displayed on a map.&nbsp; ESJ-Geo provides a way to display this information and includes a methodolgy for combining user defined indicators. </p>
+              <p class="mb-0">ESJGeo is a mapping and screening tool that provides communities with a nationally consistent approach for combining various indicators. Users choose a geographic area, and select weights from a list of variables; the tool then provides a final weighted index displayed on a map.&nbsp; ESJGeo provides a way to display this information and includes a methodolgy for combining user defined indicators. </p>
               <p class="mb-0">&nbsp;</p>
-              <p class="mb-0">At it's core, ESJ-Geo is a methodology that evaluates neighborhoods of a community and compares them to each other. This is done through statistical normalization of multiple variables before finally combining them into a single index. This single index is calculated dynamically from user controlled inputs.&nbsp;
+              <p class="mb-0">At it's core, ESJGeo is a methodology that evaluates neighborhoods of a community and compares them to each other. This is done through statistical normalization of multiple variables before finally combining them into a single index. This single index is calculated dynamically from user controlled inputs.&nbsp;
               <p class="mb-0">&nbsp;</p>
               <p class="mb-0">This tool provides a number of capabilities including:&nbsp;</p>
               <p class="mb-0">-Thematic mapping&nbsp;</p>
               <p class="mb-0">-The ability analyze demographic variables for a selected area&nbsp;</p>
               <p class="mb-0">-Comparisons showing how a selected neighborhood compares to those around it and the nation</p>
               <p class="mb-0">&nbsp;</p>
-              <p class="mb-0">Anyone can use ESJ-Geo. By design ESJ-Geo is flexible and can be used in a variety of scenarios. ESJ-Geo is intedned to be a supplement to any decision support analysis effort</p>
+              <p class="mb-0">Anyone can use ESJGeo. By design ESJGeo is flexible and can be used in a variety of scenarios. ESJGeo is intedned to be a supplement to any decision support analysis effort</p>
               <p class="mb-0">&nbsp;</p>
-              <p class="mb-0"> Anyone using ESJ-Geo should note there is substantial uncertainty in demographic data, particularly when looking at small geographic areas. ESJ-Geo is not intended to provide a risk assessment. Also ESJ-Geo does not provide data on every relavent indicator that may be of importance to a particular location or topic, and data may be several years old. Screening results should be supplemented with additional information and local knowledge to get a better understanding of the issues in a selected location.</p>
+              <p class="mb-0"> Anyone using ESJGeo should note there is substantial uncertainty in demographic data, particularly when looking at small geographic areas. ESJGeo is not intended to provide a risk assessment. Also ESJGeo does not provide data on every relavent indicator that may be of importance to a particular location or topic, and data may be several years old. Screening results should be supplemented with additional information and local knowledge to get a better understanding of the issues in a selected location.</p>
             </blockquote>
           </div>
         </div>
       </div>
+
+      <div class="container ">
+        <div class="row">
+          <div class="container ">
+            <div class="row">
+              
+
+              <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                <a href="map.html?GEOID=5333805&place=Issaquah, Washington">
+                  <img src="images/Issaquah.png" data-holder-rendered="true">
+                </a>
+                <h3>Issaquah, WA</h3>
+                <p>Launch ESJGeo and view <br> results for this featured City </p>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                <a href="map.html?GEOID=4075000&place=Tulsa,%20OK">
+                  <img src="images/Auburn.png" data-holder-rendered="true">
+                </a>
+                <h3>Tulsa, OK</h3>
+                <p>Launch ESJGeo and view <br> results for this featured City </p>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                <a href="map.html?GEOID=4202000&place=Allentown,%20PA">
+                  <img src="images/Bellevue.png" data-holder-rendered="true">
+                </a>
+                <h3>Allentown, PA</h3>
+                <p>Launch ESJGeo and view <br> results for this featured City </p>
+              </div>
+              <h2>&nbsp;</h2>
+            </div>
+            <div class="row"></div>
+          </div>
+        </div>
+      </div>
+
       <div class="jumbotron" style="width:100%">
         <div class="container">
           <div class="row">
             <div class="text-center col-md-8 col-12 mx-auto">
-              <p class="lead">Click below to view results for your community!</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-4 col-auto mx-auto">
-              <a class="btn btn-block btn-lg btn-success" href="search.html" title="">Search</a>
+              <div id="label" style="  text-align: center; color:white; text-shadow: black 0.1em 0.1em 0.2em; font-size:x-large">Search to view results for your community!</div>
+              <div style="margin:auto;" id="searchDiv"></div>
             </div>
           </div>
         </div>
@@ -95,16 +134,11 @@
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <p>Copyright © ESJ-Geo. All rights reserved.</p>
+              <p>Copyright © ESJGeo. All rights reserved.</p>
             </div>
           </div>
         </div>
       </footer>
     </calcite-shell>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
   </body>
 </html>
