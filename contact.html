@@ -1,41 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    	  <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139855813-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-          dataLayer.push(arguments);
-      }
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'UA-139855813-1');
-          </script>
+    </script>
 
-          <script>
-      
-      function sendMessage() {
+        <!-- Calcite -->
+        <script type="module" src=https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js></script>
+        <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/1.4.3/calcite.css />
 
-      console.log(document.getElementById("name").value)
-      var request = new XMLHttpRequest();
-      request.open("POST", "https://hook.integromat.com/cbhxvlf9fqyftdxuwsaxrk8suv36kwtw");
+    <script>
 
-      request.setRequestHeader('Content-type', 'application/json');
+   
+        function sendMessage() {
 
-      var params = {
-          name: document.getElementById("name").value,
-          email: document.getElementById("email").value,
-          subject: document.getElementById("subject").value,
-          message: document.getElementById("message").value
-      }
+             //listen for the alert to close and redirect to home
+            const alertDiv = document.getElementById("alert")
+            alertDiv.addEventListener("calciteAlertClose", function() {
+                window.location.replace("index.html");
+                })
 
-      request.send(JSON.stringify(params));
-      window.location.replace("http://www.w3schools.com");
-      }
+            const button = document.getElementById("button")
+            
+
+            
+
+       if(document.getElementById("email").value){ 
+        button.disabled="true"
+
+        var request = new XMLHttpRequest();
+        request.open("POST", "https://hook.integromat.com/cbhxvlf9fqyftdxuwsaxrk8suv36kwtw");
+        request.setRequestHeader('Content-type', 'application/json');
+
+        var params = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            subject: document.getElementById("subject").value,
+            message: document.getElementById("message").value
+        }
+
+        request.send(JSON.stringify(params));
+        request.onreadystatechange = (e) => {
+            if (request.readyState == XMLHttpRequest.DONE){
+        
+        console.log("sent")
+        //window.location.replace("message_sent.html");
+        document.getElementById("alert").open="true"
+    }}
+    }else{
+        const emailAlert = document.getElementById("emailAlert")
+        emailAlert.open = "true"
+    }
+    }
+
+
+
+
+    
 
     </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,19 +73,15 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-    <!-- Calcite -->
-    <script type="module" src=https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js></script>
-    <link rel="stylesheet" type="text/css" href=https://js.arcgis.com/calcite-components/1.4.3/calcite.css />
-    </head>
-    <body>
-      <calcite-shell>
+  </head>
+  <body>
+    <calcite-shell>
         <calcite-navigation slot="header">
           <calcite-navigation-logo id="title" slot="logo" heading="ESJGeo" thumbnail="./images/favicon.svg" href="https://esjgeo.com"></calcite-navigation-logo>
           <calcite-dropdown width="m" slot="content-end">
             <calcite-action text="Menu" icon="hamburger" text-enabled slot="trigger"></calcite-action>
             <calcite-dropdown-group>
               <calcite-dropdown-item icon-start="home" href="./index.html">Home</calcite-dropdown-item>
-              <calcite-dropdown-item icon-start="search" href="./search.html">Search</calcite-dropdown-item>
               <calcite-dropdown-item icon-start="information" href="./intro.html">Introduction</calcite-dropdown-item>
               <calcite-dropdown-item icon-start="education" href="./learn.html">Learn ESJGeo</calcite-dropdown-item>
               <calcite-dropdown-item icon-start="vertical-distribute" href="./results.html">Understand Results</calcite-dropdown-item>
@@ -63,17 +89,52 @@
             </calcite-dropdown-group>
           </calcite-dropdown>
         </calcite-navigation>
-        <p>&nbsp;</p>
-        <div class="container ">
-          <iframe src="contact-form.html" height='600px' width='100%' frameborder="0px"></iframe>
-          <br>
-          <br>
+    <header>
+      <div class="jumbotron">
+        <div class="container">
+          <div class="row">
+       
+              <h1 class="text-left">Contact Us</h1>
+
+
+          </div>
         </div>
-      </calcite-shell>
-      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="js/jquery-3.4.1.min.js"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap-4.4.1.js"></script>
-    </body>
-    </html>
+      </div>
+    </header>
+
+    <div style="margin-left:auto; margin-right: auto; width: 70%;">
+
+                            <calcite-label>
+                                Your name
+                                <calcite-input id="name"></calcite-input>
+                            </calcite-label>
+
+                        <calcite-label>
+                            Your email
+                            <calcite-input id="email" type="email"></calcite-input>
+                        </calcite-label>
+
+                    <calcite-label>
+                        Subject
+                        <calcite-input id="subject"></calcite-input>
+                    </calcite-label>
+
+                <calcite-label>
+                    Message
+                    <calcite-input id="message" type="textarea"></calcite-input>
+                </calcite-label>
+
+            <calcite-button id="button" onclick="sendMessage()">Send</calcite-button>
+  </div>
+
+<calcite-alert id="alert" icon="check-circle" label="alert" auto-close kind="success">
+    <div slot="title">Email sent</div>
+    <div slot="message">Thank you for reaching out, someone will be in touch soon</div>
+</calcite-alert>
+<calcite-alert id="emailAlert" icon="x-circle" label="A report alert" auto-close kind="danger">
+    <div slot="title">Email address is required </div>
+    <div slot="message">Please provide a valide email address</div>
+</calcite-alert>
+</calcite-shell>
+  </body>
+</html>
