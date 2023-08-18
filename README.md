@@ -6,4 +6,4 @@ ESJGeo was developed to support local government agencies, non-profits and volun
 
 This is a static javscript application that enables users a unique way to inspect Census data. The census data used in this applicaiton was transformed via the associated ESJGeo_DataBuilder.py script.
 This project is still in development
-To use this project, simply visit [Https:](https://esjgeo.com/)
+To use this project, simply visit [https://esjgeo.com](https://esjgeo.com/)
