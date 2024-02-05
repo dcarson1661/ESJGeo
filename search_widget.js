@@ -1,10 +1,14 @@
 require([
     "esri/widgets/Search",
-    "esri/layers/FeatureLayer"
+    "esri/layers/FeatureLayer",
+    "esri/config"
 ], function(
     Search,
-    FeatureLayer
+    FeatureLayer,
+    esriConfig
 ) {
+
+    esriConfig.apiKey ="AAPK4137d9696337470e96f8ae57a9621e03MQoKvd6JLBKDBDO0Z1UdBVpGQbuUxU0yOp6RuOysYptl5F1x6TfZhyREeCxjxWNW"
 
     var myGeocoder = {
         url: "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
