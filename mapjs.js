@@ -13,7 +13,8 @@ require([
     "esri/widgets/smartMapping/ColorSlider",
     "esri/smartMapping/symbology/color",
     "esri/Viewpoint",
-    "esri/smartMapping/statistics/summaryStatistics"
+    "esri/smartMapping/statistics/summaryStatistics",
+    "esri/config"
 ], (
     Map,
     MapView,
@@ -29,12 +30,15 @@ require([
     ColorSlider,
     colorSchemes,
     Viewpoint,
-    summaryStatistics
+    summaryStatistics,
+    esri/config
 
 
 
 ) => {
 
+
+esriConfig.apiKey ="AAPK4137d9696337470e96f8ae57a9621e03MQoKvd6JLBKDBDO0Z1UdBVpGQbuUxU0yOp6RuOysYptl5F1x6TfZhyREeCxjxWNW"
 
     function mobileCheck() {
         let check = false;
