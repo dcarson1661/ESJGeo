@@ -31,7 +31,7 @@ require([
     colorSchemes,
     Viewpoint,
     summaryStatistics,
-    esri/config
+    esriConfig
 
 
 
@@ -153,7 +153,8 @@ esriConfig.apiKey ="AAPK4137d9696337470e96f8ae57a9621e03MQoKvd6JLBKDBDO0Z1UdBVpG
     document.getElementById("title").description = place
 
     let featureLayer = new FeatureLayer({
-        url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/1",
+       // url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/1",
+	url: "https://services1.arcgis.com/Talr0y9yrNfatLSI/arcgis/rest/services/ESJGeo_gdb/FeatureServer/1",
         outFields: ["*"],
         title: "Adjusted Index Layer",
         // popupTemplate: popupTemplate,
@@ -165,7 +166,8 @@ esriConfig.apiKey ="AAPK4137d9696337470e96f8ae57a9621e03MQoKvd6JLBKDBDO0Z1UdBVpG
     map.add(featureLayer);
 
     let placeLayer = new FeatureLayer({
-        url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0",
+       // url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0",
+	url: "https://services1.arcgis.com/Talr0y9yrNfatLSI/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0",
         outFields: ["*"],
         title: place,
         definitionExpression: "FIPS = '" + GEOID + "'",
