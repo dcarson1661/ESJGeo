@@ -35,7 +35,8 @@ require([
 
 
     const featureLayer = new FeatureLayer({
-        url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0"
+        //url: "https://services9.arcgis.com/jyf59MjuiWfY46oy/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0"
+        url: "https://services1.arcgis.com/Talr0y9yrNfatLSI/arcgis/rest/services/ESJGeo_gdb/FeatureServer/0"
     });
 
     baseURL = "https://esjgeo.com/map.html?"
